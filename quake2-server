@@ -14,26 +14,41 @@ HOME=/usr/share/games/quake2
 
 case "$1" in
   start)
-	echo -n "Starting Quake2 server: "
-        cd $HOME
-	/usr/bin/quake2id +set dedicated 1 +exec server.cfg > /dev/null &
-	echo
+	# Check if the service is already running?
+	if [ ! -f /var/lock/subsys/quake2-server ]; then
+		msg_starting "Quake2 server"
+		busy
+		cd $HOME
+    		/usr/bin/quake2id +set dedicated 1 +exec server.cfg > /dev/null &
+		deltext
+		ok
+	else
+		msg_Already_Running "Quake2 server"
+	        exit 1
+	fi
+	touch /var/lock/subsys/quake2-server
 	;;
   stop)
-	echo -n "Stopping Quake2 server: "
-	killall quake2id
-	echo ""
+
+	if [ -f /var/lock/subsys/quake2-server ]; then
+		msg_stopping "Quake2 server"
+                killproc quake2id
+                rm -f /var/lock/subsys/quake2-server
+        else
+                msg_Not_Running "Quake2 server"
+                exit 1
+	fi
 	;;
-  restart)
+  restart|reload)
         $0 stop
         $0 start
         ;;
   status)
-  	status /usr/bin/quake2id
+	status /usr/bin/quake2id
 	exit $?
 	;;
   *)
-	echo "Usage: quake2-server {start|stop|restart|status}"
+	msg_Usage "$0 {start|stop|restart|reload|status}"
 	exit 1
 esac
 
