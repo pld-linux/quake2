@@ -1,7 +1,0 @@
-# quake2
-# Arquivo de configuração do quake2
-# Changed by fastviper
-
-#SOUND=no
-SOUND=yes
-CDAUDIO=no
