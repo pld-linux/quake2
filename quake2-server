@@ -1,0 +1,36 @@
+#!/bin/sh
+# quake2-server
+# qui mai  7 16:15:54 EST 1998
+#
+# chkconfig: 345 98 10
+# description: Ativa/Desativa servidor quake2
+# Translated to English by fastviper
+
+# Biblioteca de funções
+# Functions library
+. /etc/rc.d/init.d/functions
+
+HOME=/usr/lib/quake2
+
+case "$1" in
+  start)
+	echo -n "Starting Quake2 server: "
+        cd $HOME
+	/usr/bin/quake2id +set dedicated 1 +exec server.cfg > /dev/null &
+	echo
+	;;
+  stop)
+	echo -n "Stopping Quake2 server: "
+	killall quake2id
+	echo ""
+	;;
+  restart)
+        $0 stop
+        $0 start
+        ;;
+  *)
+	echo "Usage: quake2-server {start|stop|restart}"
+	exit 1
+esac
+
+exit 0
