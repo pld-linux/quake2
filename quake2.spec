@@ -3,7 +3,7 @@ Summary(pl):	Quake2 dla Linuksa
 Summary(pt_BR):	Quake2 para Linux
 Name:		quake2
 Version:	3.21
-Release:	1
+Release:	2
 License:	GPL (for code only)
 Group:		Applications/Games
 Source0:	ftp://ftp.idsoftware.com/idstuff/source/q2source-%{version}.zip
@@ -21,7 +21,7 @@ Requires:	%{name}-renderer
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_gamedir	/usr/lib/games/quake2
-
+%define		_gamedatadir	/usr/share/games/quake2
 %description
 Quake2 for linux!
 
@@ -128,7 +128,8 @@ mv -f Makefile.tmp linux/Makefile
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_bindir},/etc/rc.d/init.d,/etc/sysconfig,%{_gamedir}/baseq2}
+install -d $RPM_BUILD_ROOT{%{_bindir},/etc/rc.d/init.d,/etc/sysconfig}
+install -d $RPM_BUILD_ROOT{%{_gamedir}/baseq2,%{_gamedatadir}/baseq2}
 
 #$RPM_BUILD_ROOT%{_gamedir}/baseq2/players/{crakhor,cyborg,female,male}
 
@@ -147,6 +148,8 @@ install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/quake2
 install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
 install %{SOURCE4} $RPM_BUILD_ROOT%{_gamedir}/baseq2/server.cfg
 install %{SOURCE5} $RPM_BUILD_ROOT/etc/rc.d/init.d/quake2-server
+
+ln -sf %{_gamedir}/baseq2/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/gamei386.so
 
 cd $RPM_BUILD_ROOT%{_bindir} ; tar zxfv %{SOURCE1}
 
@@ -176,6 +179,7 @@ fi
 %attr(755,root,root) %{_gamedir}/baseq2/gamei386.so
 #%{_gamedir}/baseq2/pak2.pak
 #%{_gamedir}/baseq2/players
+%{_gamedatadir}
 %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/quake2
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/quake2.conf
 
