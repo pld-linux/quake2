@@ -1,18 +1,23 @@
+
+%define		_snapshot	20020721
+
+
 Summary:	Quake2 for linux
 Summary(pl):	Quake2 dla Linuksa
 Summary(pt_BR):	Quake2 para Linux
 Name:		quake2
 Version:	3.21
-Release:	4
+Release:	5.%{_snapshot}
 License:	GPL (for code only)
 Group:		Applications/Games
-Source0:	ftp://ftp.idsoftware.com/idstuff/source/q2source-%{version}.zip
+Source0:	quake2-%{_snapshot}.tar.bz2
 Source1:	%{name}-scripts.tgz
-Source2:	%{name}.sysconfig
+#Source2:	multiplay pack (need to check licence)
 Source3:	%{name}.conf
 Source4:	%{name}-server.conf
 Source5:	%{name}-server
 Source6:	%{name}.png
+Patch0:		%{name}-gl_fix.patch
 URL:		http://www.idsoftware.com/games/quake/quake2/
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
@@ -118,47 +123,58 @@ Serwer Quake2 dla Linuksa.
 Servidor Quake2.
 
 %prep
-%setup -q -c
-mv -f %{name}-%{version}/* .
+%setup -q -n %{name}
+%patch0
+
+cat Makefile.am |sed -e 's/libltdl//'>Makefile.am.tmp
+mv -f Makefile.am.tmp Makefile.am
+
+cat configure.in |sed -e 's/AC_LIBLTDL_CONVENIENCE/AC_LIBLTDL_INSTALLABLE/' \
+>configure.in.tmp
+mv -f configure.in.tmp configure.in
+
 
 %build
-cat linux/Makefile | tr -d '\015' > Makefile.tmp
-mv -f Makefile.tmp linux/Makefile
+libtoolize
+aclocal
+autoheader
+%{__automake}
+%{__autoconf}
 
-%{__make} build_release -C linux \
-	RELEASE_CFLAGS="-Dstricmp=strcasecmp %{rpmcflags} -ffast-math %{!?debug:-fomit-frame-pointer}" \
-	MESA_DIR=/usr/X11R6
+%configure \
+	--enable-ltdl-install=no \
+	--libdir=/usr/lib/games
+
+%{__make}
+
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_xbindir},/etc/rc.d/init.d,/etc/sysconfig,%{_gamedir}}
-install -d $RPM_BUILD_ROOT{%{_gamedatadir}/baseq2,%{_pixmapsdir},%{_applnkdir}/Games}
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
+
+install -d $RPM_BUILD_ROOT{%{_gamedatadir}/baseq2,%{_gamedatadir}/ctf,%{_bindir},%{_xbindir},/etc/rc.d/init.d,%{_gamedir}}
+install -d $RPM_BUILD_ROOT{%{_pixmapsdir},%{_applnkdir}/Games}
 
 #$RPM_BUILD_ROOT%{_gamedir}/baseq2/players/{crakhor,cyborg,female,male}
 
 #for i in crakhor cyborg female male ; do
 #        install baseq2/players/$i/* $RPM_BUILD_ROOT%{_gamedir}/baseq2/players/$i
 #done
-#install baseq2/pak2.pak		$RPM_BUILD_ROOT%{_gamedir}/quake2/baseq2
+#install baseq2/pak2.pak        $RPM_BUILD_ROOT%{_gamedir}/quake2/baseq2
 
-cd linux/releasei386-glibc
-
-install quake2 $RPM_BUILD_ROOT%{_bindir}/quake2id
-install gamei386.so $RPM_BUILD_ROOT%{_gamedir}
-install ref_*.so $RPM_BUILD_ROOT%{_gamedir}
 
 tar zxfv %{SOURCE1}
 install %{name}-svgalib $RPM_BUILD_ROOT%{_bindir}
 install {%{name}-GLX,%{name}-Mesa3D,%{name}-X11} $RPM_BUILD_ROOT%{_xbindir}
 
-install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/quake2
 install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
 install %{SOURCE4} $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/server.cfg
 install %{SOURCE5} $RPM_BUILD_ROOT/etc/rc.d/init.d/quake2-server
 install %{SOURCE6} $RPM_BUILD_ROOT%{_pixmapsdir}
 
-ln -sf %{_gamedir}/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/gamei386.so
+ln -sf %{_gamedir}/baseq2/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/gamei386.so
+ln -sf %{_gamedir}/ctf/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/ctf/gamei386.so
 
 q2ver="GLX Mesa3D X11"
 
@@ -189,15 +205,16 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc *hanges.txt readme.txt linux/README linux/README-3.21-RELEASE
-%attr(755,root,root)%{_bindir}/quake2id
+%doc AUTHORS COPYING HACKING README TODO
+#doc/README* doc/*.txt doc/ctf/*
+%attr(755,root,root)%{_bindir}/quake2
 %dir %{_gamedir}
-%attr(755,root,root) %{_gamedir}/gamei386.so
+%attr(755,root,root) %{_gamedir}/baseq2/game.so
+%attr(755,root,root) %{_gamedir}/ctf/game.so
 #%{_gamedir}/baseq2/pak2.pak
 #%{_gamedir}/baseq2/players
 %{_gamedatadir}
 %{_pixmapsdir}/quake2.png
-%config(noreplace) %verify(not size mtime md5) /etc/sysconfig/quake2
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/quake2.conf
 
 %files server
@@ -216,11 +233,11 @@ fi
 %attr(755,root,root) %{_gamedir}/ref_softx.so
 %{_applnkdir}/Games/quake2-X11.desktop
 
-%files Mesa3D
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_xbindir}/quake2-Mesa3D
-%attr(755,root,root) %{_gamedir}/ref_gl.so
-%{_applnkdir}/Games/quake2-Mesa3D.desktop
+#%files Mesa3D
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_xbindir}/quake2-Mesa3D
+#%attr(755,root,root) %{_gamedir}/ref_gl.so
+#%{_applnkdir}/Games/quake2-Mesa3D.desktop
 
 #%files 3DFX
 #%defattr(644,root,root,755)
