@@ -164,7 +164,7 @@ mv -f configure.in.tmp configure.in
 
 %build
 %{__aclocal}
-autoheader
+%{__autoheader}
 %{__libtoolize} --ltdl --automake
 %{__automake}
 %{__autoconf}
