@@ -1,0 +1,24 @@
+--- src/files.c~	2002-12-23 09:15:00.000000000 +0100
++++ src/files.c	2003-10-05 15:58:04.000000000 +0200
+@@ -630,6 +630,7 @@
+ void FS_SetGamedir (char *dir)
+ {
+ 	searchpath_t	*next;
++	cvar_t *cv;
+ 
+ 	if (strstr(dir, "..") || strstr(dir, "/")
+ 		|| strstr(dir, "\\") || strstr(dir, ":") )
+@@ -654,10 +655,12 @@
+ 		fs_searchpaths = next;
+ 	}
+ 
++	cv = Cvar_Get ("stupid_nvidia_bug", "0", 0);
++
+ 	//
+ 	// flush all data, so it will be forced to reload
+ 	//
+-	if (dedicated && !dedicated->value)
++	if (dedicated && !dedicated->value && !cv->value)
+ 		Cbuf_AddText ("vid_restart\nsnd_restart\n");
+ 
+ 	// now add new entries for 
