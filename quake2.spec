@@ -227,9 +227,9 @@ fi
 %dir %{_gamelibdir}/baseq2
 %dir %{_gamelibdir}/ctf
 %attr(755,root,root) %{_gamelibdir}/baseq2/game.so
-%attr(755,root,root) %{_gamelibdir}/baseq2/game.la
+%{_gamelibdir}/baseq2/game.la
 %attr(755,root,root) %{_gamelibdir}/ctf/game.so
-%attr(755,root,root) %{_gamelibdir}/ctf/game.la
+%{_gamelibdir}/ctf/game.la
 #%{_gamedir}/baseq2/pak2.pak
 #%{_gamedir}/baseq2/players
 %dir %{_gamedatadir}
@@ -256,29 +256,29 @@ fi
 %files 3dfx
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_gamelibdir}/ref_tdfx.so
-%attr(755,root,root) %{_gamelibdir}/ref_tdfx.la
+%{_gamelibdir}/ref_tdfx.la
 
 %files glx
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_gamelibdir}/ref_glx.so
-%attr(755,root,root) %{_gamelibdir}/ref_glx.la
+%{_gamelibdir}/ref_glx.la
 
 %files sdl
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_gamelibdir}/ref_softsdl.so
-%attr(755,root,root) %{_gamelibdir}/ref_softsdl.la
+%{_gamelibdir}/ref_softsdl.la
 
 %files sgl
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_gamelibdir}/ref_sdlgl.so
-%attr(755,root,root) %{_gamelibdir}/ref_sdlgl.la
+%{_gamelibdir}/ref_sdlgl.la
 
 %files svga
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_gamelibdir}/ref_soft.so
-%attr(755,root,root) %{_gamelibdir}/ref_soft.la
+%{_gamelibdir}/ref_soft.la
 
 %files x11
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_gamelibdir}/ref_softx.so
-%attr(755,root,root) %{_gamelibdir}/ref_softx.la
+%{_gamelibdir}/ref_softx.la
