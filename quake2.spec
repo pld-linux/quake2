@@ -25,6 +25,7 @@ BuildRequires:	libtool
 BuildRequires:	svgalib-devel
 BuildRequires:	SDL-devel
 BuildRequires:	unzip
+BuildRequires:	nas-static
 Requires:	%{name}-renderer
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
