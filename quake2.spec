@@ -3,7 +3,7 @@ Summary(pl):	Quake2 dla Linuksa
 Summary(pt_BR):	Quake2 para Linux
 Name:		quake2
 Version:	3.21
-Release:	3
+Release:	4
 License:	GPL (for code only)
 Group:		Applications/Games
 Source0:	ftp://ftp.idsoftware.com/idstuff/source/q2source-%{version}.zip
@@ -12,6 +12,7 @@ Source2:	%{name}.sysconfig
 Source3:	%{name}.conf
 Source4:	%{name}-server.conf
 Source5:	%{name}-server
+Source6:	%{name}.png
 URL:		http://www.idsoftware.com/games/quake/quake2/
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
@@ -20,8 +21,10 @@ BuildRequires:	unzip
 Requires:	%{name}-renderer
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define		_xbindir	/usr/X11R6/bin
 %define		_gamedir	/usr/lib/games/quake2
 %define		_gamedatadir	/usr/share/games/quake2
+
 %description
 Quake2 for linux!
 
@@ -44,17 +47,18 @@ Quake2 libraries for SVGAlib play.
 %description svgalib -l pl
 Biblioteki Quake2 do grania na SVGAlib.
 
-%package software-X11
+%package X11
 Summary:	Quake2 X11 software renderer libs
 Summary(pl):	Biblioteka Quake2 - programowe renderowanie
 Group:		Applications/Games
 Requires:	%{name} = %{version}
 Provides:	%{name}-renderer
+Obsoletes:	%{name}-software-X11
 
-%description software-X11
+%description X11
 Play Quake2 using software X11 renderer.
 
-%description software-X11 -l pl
+%description X11 -l pl
 Zagraj w Quake2 przy u¿yciu programowego renderowania w X11.
 
 %package Mesa3D
@@ -70,18 +74,18 @@ Play Quake2 using Mesa3D software acceleration.
 %description Mesa3D -l pl
 Zagraj w Quake2 przy u¿yciu programowego renderowania Mesa3D.
 
-%package 3DFX
-Summary:	Quake2 3DFX libs
-Summary(pl):	Biblioteki 3DFX dla Quake2
-Group:		Applications/Games
-Requires:	%{name} = %{version}
-Provides:	%{name}-renderer
+#%package 3DFX
+#Summary:	Quake2 3DFX libs
+#Summary(pl):	Biblioteki 3DFX dla Quake2
+#Group:		Applications/Games
+#Requires:	%{name} = %{version}
+#Provides:	%{name}-renderer
 
-%description 3DFX
-Play Quake2 using 3DFX acceleration.
+#%description 3DFX
+#Play Quake2 using 3DFX acceleration.
 
-%description 3DFX -l pl
-Zagraj w Quake2 z akceleracj± 3DFX.
+#%description 3DFX -l pl
+#Zagraj w Quake2 z akceleracj± 3DFX.
 
 %package GLX
 Summary:	OpenGL Quake2
@@ -128,8 +132,8 @@ mv -f Makefile.tmp linux/Makefile
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_bindir},/etc/rc.d/init.d,/etc/sysconfig}
-install -d $RPM_BUILD_ROOT{%{_gamedir},%{_gamedatadir}/baseq2}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_xbindir},/etc/rc.d/init.d,/etc/sysconfig,%{_gamedir}}
+install -d $RPM_BUILD_ROOT{%{_gamedatadir}/baseq2,%{_pixmapsdir},%{_applnkdir}/Games}
 
 #$RPM_BUILD_ROOT%{_gamedir}/baseq2/players/{crakhor,cyborg,female,male}
 
@@ -140,18 +144,29 @@ install -d $RPM_BUILD_ROOT{%{_gamedir},%{_gamedatadir}/baseq2}
 
 cd linux/releasei386-glibc
 
-install gamei386.so $RPM_BUILD_ROOT%{_gamedir}
 install quake2 $RPM_BUILD_ROOT%{_bindir}/quake2id
+install gamei386.so $RPM_BUILD_ROOT%{_gamedir}
 install ref_*.so $RPM_BUILD_ROOT%{_gamedir}
+
+tar zxfv %{SOURCE1}
+install %{name}-svgalib $RPM_BUILD_ROOT%{_bindir}
+install {%{name}-GLX,%{name}-Mesa3D,%{name}-X11} $RPM_BUILD_ROOT%{_xbindir}
 
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/quake2
 install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
 install %{SOURCE4} $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/server.cfg
 install %{SOURCE5} $RPM_BUILD_ROOT/etc/rc.d/init.d/quake2-server
+install %{SOURCE6} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 ln -sf %{_gamedir}/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/gamei386.so
 
-cd $RPM_BUILD_ROOT%{_bindir} ; tar zxfv %{SOURCE1}
+q2ver="GLX Mesa3D X11"
+
+for f in $q2ver; do
+	desktopfile="$RPM_BUILD_ROOT%{_applnkdir}/Games/%{name}-$f.desktop"
+	echo "[Desktop Entry]\nName=Quake II ($f)\nExec=%{name}-$f\nIcon=%{name}.png \
+	\nTerminal=0\nType=Application\n" > $desktopfile
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -179,6 +194,7 @@ fi
 #%{_gamedir}/baseq2/pak2.pak
 #%{_gamedir}/baseq2/players
 %{_gamedatadir}
+%{_pixmapsdir}/quake2.png
 %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/quake2
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/quake2.conf
 
@@ -192,15 +208,17 @@ fi
 %attr(755,root,root) %{_bindir}/quake2-svgalib
 %attr(755,root,root) %{_gamedir}/ref_soft.so
 
-%files software-X11
+%files X11
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/quake2-software-X11
+%attr(755,root,root) %{_xbindir}/quake2-X11
 %attr(755,root,root) %{_gamedir}/ref_softx.so
+%{_applnkdir}/Games/quake2-X11.desktop
 
 %files Mesa3D
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/quake2-Mesa3D
+%attr(755,root,root) %{_xbindir}/quake2-Mesa3D
 %attr(755,root,root) %{_gamedir}/ref_gl.so
+%{_applnkdir}/Games/quake2-Mesa3D.desktop
 
 #%files 3DFX
 #%defattr(644,root,root,755)
@@ -210,5 +228,6 @@ fi
 
 %files GLX
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/quake2-GLX
+%attr(755,root,root) %{_xbindir}/quake2-GLX
 %attr(755,root,root) %{_gamedir}/ref_glx.so
+%{_applnkdir}/Games/quake2-GLX.desktop
