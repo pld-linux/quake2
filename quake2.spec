@@ -58,10 +58,8 @@ Provides:	%{name}-renderer
 Play Quake2 using software X11 renderer
 
 %description software-X11 -l pl
+Zagraj w Quake2 przy u¿yciu programowego renderowania w X11
 # -------------------- END software-X11 subpackage -------------------------------
-Zagraj w Quake2 przy urzyciu programowego renderowania w X11
-
-
 
 # -------------------- BEGIN Mesa3D subpackage -------------------------------
 %package Mesa3D
@@ -76,9 +74,9 @@ Provides:	%{name}-renderer
 Play Quake2 using Mesa3D software acceleration
 
 %description Mesa3D -l pl
-# -------------------- END Mesa3D subpackage -------------------------------
-Zagraj w Quake2 przy urzyciu programowego renderowania Mesa3D
+Zagraj w Quake2 przy u¿yciu programowego renderowania Mesa3D
 
+# -------------------- END Mesa3D subpackage -------------------------------
 
 
 # -------------------- BEGIN 3DFX subpackage -------------------------------
