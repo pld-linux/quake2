@@ -1,22 +1,20 @@
 
-%define		_snapshot	20020721
+%define		_snapshot	20020815
 
 
 Summary:	Quake2 for linux
 Summary(pl):	Quake2 dla Linuksa
 Summary(pt_BR):	Quake2 para Linux
 Name:		quake2
-Version:	3.21
-Release:	5.%{_snapshot}
+Version:	3.21.%{_snapshot}
+Release:	1
 License:	GPL (for code only)
 Group:		Applications/Games
-Source0:	quake2-%{_snapshot}.tar.bz2
-Source1:	%{name}-scripts.tgz
-#Source2:	multiplay pack (need to check licence)
-Source3:	%{name}.conf
-Source4:	%{name}-server.conf
-Source5:	%{name}-server
-Source6:	%{name}.png
+Source0:	%{name}-%{version}.tar.bz2
+#Source1:	multiplay pack (need to check licence)
+Source2:	%{name}-server.conf
+Source3:	%{name}-server
+Source4:	%{name}.png
 Patch0:		%{name}-gl_fix.patch
 URL:		http://www.idsoftware.com/games/quake/quake2/
 BuildRequires:	libltdl-devel
@@ -27,9 +25,8 @@ BuildRequires:	unzip
 Requires:	%{name}-renderer
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_xbindir	/usr/X11R6/bin
-%define		_gamedir	/usr/lib/games/quake2
-%define		_gamedatadir	/usr/share/games/quake2
+%define		_gamelibdir	%{_libdir}/games/%{name}
+%define		_gamedatadir	%{_datadir}/games/%{name}
 
 %description
 Quake2 for linux!
@@ -40,72 +37,17 @@ Quake2 dla Linuksa!
 %description -l pt_BR
 Quake2 para Linux!
 
-%package svgalib
-Summary:	Quake2 for SVGAlib
-Summary(pl):	Biblioteki Quake2 dla SVGAlib
+%package static
+Summary:	Quake2 - static libs
+Summary(pl):	Quake2 - biblioteki statyczne
 Group:		Applications/Games
 Requires:	%{name} = %{version}
-Provides:	%{name}-renderer
 
-%description svgalib
-Quake2 libraries for SVGAlib play.
+%description static
+Quake2 - static libs
 
-%description svgalib -l pl
-Biblioteki Quake2 do grania na SVGAlib.
-
-%package X11
-Summary:	Quake2 X11 software renderer libs
-Summary(pl):	Biblioteka Quake2 - programowe renderowanie
-Group:		Applications/Games
-Requires:	%{name} = %{version}
-Provides:	%{name}-renderer
-Obsoletes:	%{name}-software-X11
-
-%description X11
-Play Quake2 using software X11 renderer.
-
-%description X11 -l pl
-Zagraj w Quake2 przy u¿yciu programowego renderowania w X11.
-
-%package Mesa3D
-Summary:	Quake2 X11 Mesa renderer libs
-Summary(pl):	Biblioteka Mesa dla Quake2
-Group:		Applications/Games
-Requires:	%{name} = %{version}
-Provides:	%{name}-renderer
-
-%description Mesa3D
-Play Quake2 using Mesa3D software acceleration.
-
-%description Mesa3D -l pl
-Zagraj w Quake2 przy u¿yciu programowego renderowania Mesa3D.
-
-#%package 3DFX
-#Summary:	Quake2 3DFX libs
-#Summary(pl):	Biblioteki 3DFX dla Quake2
-#Group:		Applications/Games
-#Requires:	%{name} = %{version}
-#Provides:	%{name}-renderer
-
-#%description 3DFX
-#Play Quake2 using 3DFX acceleration.
-
-#%description 3DFX -l pl
-#Zagraj w Quake2 z akceleracj± 3DFX.
-
-%package GLX
-Summary:	OpenGL Quake2
-Summary(pl):	Quake2 OpenGL
-Group:		Applications/Games
-Requires:	%{name} = %{version}
-Requires:	OpenGL
-Provides:	%{name}-renderer
-
-%description GLX
-Play Quake2 using hardware OpenGL acceleration.
-
-%description GLX -l pl
-Zagraj w Quake2 ze sprzêtow± akceleracj± OpenGL.
+%description static -l pl
+Quake2 - biblioteki statyczne
 
 %package server
 Summary:	Quake2 server
@@ -123,6 +65,90 @@ Serwer Quake2 dla Linuksa.
 %description server -l pt_BR
 Servidor Quake2.
 
+%package 3dfx
+Summary:	Quake2 3DFX libs
+Summary(pl):	Biblioteki 3DFX dla Quake2
+Group:		Applications/Games
+Requires:	%{name} = %{version}
+Provides:	%{name}-renderer
+Obsoletes:	%{name}-3DFX
+
+%description 3dfx
+Play Quake2 using 3DFX acceleration.
+
+%description 3dfx -l pl
+Zagraj w Quake2 z akceleracj± 3DFX.
+
+%package glx
+Summary:	OpenGL Quake2
+Summary(pl):	Quake2 OpenGL
+Group:		Applications/Games
+Requires:	%{name} = %{version}
+Requires:	OpenGL
+Provides:	%{name}-renderer
+Obsoletes:	%{name}-GLX
+
+%description glx
+Play Quake2 using hardware OpenGL acceleration.
+
+%description glx -l pl
+Zagraj w Quake2 ze sprzêtow± akceleracj± OpenGL.
+
+%package sdl
+Summary:	Quake2 for SDL
+Summary(pl):	Biblioteki Quake2 dla SDL
+Group:		Applications/Games
+Requires:	%{name} = %{version}
+Provides:	%{name}-renderer
+
+%description sdl
+Quake2 libraries for SDL play.
+
+%description sdl -l pl
+Biblioteki Quake2 do grania na SDL.
+
+%package sgl
+Summary:	Quake2 for SDL with GL
+Summary(pl):	Biblioteki Quake2 dla SDL z obs³ug± GL
+Group:		Applications/Games
+Requires:	%{name} = %{version}
+Provides:	%{name}-renderer
+
+%description sgl
+Quake2 libraries for SDL with GL play.
+
+%description sgl -l pl
+Biblioteki Quake2 do grania na SDL z obs³ug± GL.
+
+%package svga
+Summary:	Quake2 for SVGAlib
+Summary(pl):	Biblioteki Quake2 dla SVGAlib
+Group:		Applications/Games
+Requires:	%{name} = %{version}
+Provides:	%{name}-renderer
+Obsoletes:	%{name}-svgalib
+
+%description svga
+Quake2 libraries for SVGAlib play.
+
+%description svga -l pl
+Biblioteki Quake2 do grania na SVGAlib.
+
+%package x11
+Summary:	Quake2 X11 software renderer libs
+Summary(pl):	Biblioteka Quake2 - programowe renderowanie
+Group:		Applications/Games
+Requires:	%{name} = %{version}
+Provides:	%{name}-renderer
+Obsoletes:	%{name}-software-X11
+Obsoletes:	%{name}-X11
+
+%description x11
+Play Quake2 using software X11 renderer.
+
+%description x11 -l pl
+Zagraj w Quake2 przy u¿yciu programowego renderowania w X11.
+
 %prep
 %setup -q -n %{name}
 %patch0
@@ -134,29 +160,27 @@ cat configure.in |sed -e 's/AC_LIBLTDL_CONVENIENCE/AC_LIBLTDL_INSTALLABLE/' \
 >configure.in.tmp
 mv -f configure.in.tmp configure.in
 
-
 %build
-libtoolize
 aclocal
 autoheader
-%{__automake}
+%{__libtoolize} --copy --ltdl --automake
+%{__automake} --copy
 %{__autoconf}
 
 %configure \
 	--enable-ltdl-install=no \
-	--libdir=%{_gamedir} \
-	--datadir=%{_gamedatadir}
+	--libdir=%{_libdir}/games \
+	--datadir=%{_datadir}/games
 
 %{__make}
-
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_gamedatadir}/baseq2,%{_gamedatadir}/ctf,%{_bindir},%{_xbindir},/etc/rc.d/init.d,%{_gamedir}}
-install -d $RPM_BUILD_ROOT{%{_pixmapsdir},%{_applnkdir}/Games}
+install -d $RPM_BUILD_ROOT{%{_gamedatadir}/baseq2,/etc/rc.d/init.d} \
+	$RPM_BUILD_ROOT{%{_pixmapsdir},%{_applnkdir}/Games}
 
 #$RPM_BUILD_ROOT%{_gamedir}/baseq2/players/{crakhor,cyborg,female,male}
 
@@ -165,21 +189,14 @@ install -d $RPM_BUILD_ROOT{%{_pixmapsdir},%{_applnkdir}/Games}
 #done
 #install baseq2/pak2.pak        $RPM_BUILD_ROOT%{_gamedir}/quake2/baseq2
 
-
-tar zxfv %{SOURCE1}
-install %{name}-svgalib $RPM_BUILD_ROOT%{_bindir}
-install {%{name}-GLX,%{name}-Mesa3D,%{name}-X11} $RPM_BUILD_ROOT%{_xbindir}
-
-install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
-install %{SOURCE4} $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/server.cfg
-install %{SOURCE5} $RPM_BUILD_ROOT/etc/rc.d/init.d/quake2-server
-install %{SOURCE6} $RPM_BUILD_ROOT%{_pixmapsdir}
-
-#ln -sf %{_gamedir}/baseq2/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/gamei386.so
-#ln -sf %{_gamedir}/ctf/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/ctf/gamei386.so
+install %{SOURCE2} $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/server.cfg
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d
+install %{SOURCE4} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 echo "[Desktop Entry]\nName=Quake II\nExec=%{name}\nIcon=%{name}.png \
 \nTerminal=0\nType=Application\n" > $RPM_BUILD_ROOT%{_applnkdir}/Games/%{name}.desktop
+
+rm -rf docs/{CVS,ctf/CVS}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -202,54 +219,64 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING HACKING README TODO
-#doc/README* doc/*.txt doc/ctf/*
+%doc AUTHORS COPYING HACKING README TODO docs/*
 %attr(755,root,root)%{_bindir}/quake2
-%dir %{_gamedir}
-%attr(755,root,root) %{_gamedir}/baseq2/game.so
-%attr(755,root,root) %{_gamedir}/baseq2/game.la
-%attr(755,root,root) %{_gamedir}/ctf/game.so
-%attr(755,root,root) %{_gamedir}/ctf/game.la
+%dir %{_gamelibdir}
+%dir %{_gamelibdir}/baseq2
+%dir %{_gamelibdir}/ctf
+%attr(755,root,root) %{_gamelibdir}/baseq2/game.so
+%attr(755,root,root) %{_gamelibdir}/baseq2/game.la
+%attr(755,root,root) %{_gamelibdir}/ctf/game.so
+%attr(755,root,root) %{_gamelibdir}/ctf/game.la
 #%{_gamedir}/baseq2/pak2.pak
 #%{_gamedir}/baseq2/players
-%{_gamedatadir}
+%dir %{_gamedatadir}
+%dir %{_gamedatadir}/baseq2
 %{_pixmapsdir}/quake2.png
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/quake2.conf
 %{_applnkdir}/Games/quake2.desktop
+
+%files static
+%defattr(644,root,root,755)
+%{_gamelibdir}/baseq2/game.a
+%{_gamelibdir}/ctf/game.a
+%{_gamelibdir}/ref_glx.a
+%{_gamelibdir}/ref_sdlgl.a
+%{_gamelibdir}/ref_soft.a
+%{_gamelibdir}/ref_softsdl.a
+%{_gamelibdir}/ref_softx.a
+%{_gamelibdir}/ref_tdfx.a
 
 %files server
 %defattr(644,root,root,755)
 %attr(754,root,root) /etc/rc.d/init.d/quake2-server
 %config(noreplace) %verify(not size mtime md5) %{_gamedatadir}/baseq2/server.cfg
 
-%files svgalib
+%files 3dfx
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/quake2-svgalib
-%attr(755,root,root) %{_gamedir}/ref_soft.so
-%attr(755,root,root) %{_gamedir}/ref_soft.la
+%attr(755,root,root) %{_gamelibdir}/ref_tdfx.so
+%attr(755,root,root) %{_gamelibdir}/ref_tdfx.la
 
-%files X11
+%files glx
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_xbindir}/quake2-X11
-%attr(755,root,root) %{_gamedir}/ref_softx.so
-%attr(755,root,root) %{_gamedir}/ref_softx.la
+%attr(755,root,root) %{_gamelibdir}/ref_glx.so
+%attr(755,root,root) %{_gamelibdir}/ref_glx.la
 
-#%files Mesa3D
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_xbindir}/quake2-Mesa3D
-#%attr(755,root,root) %{_gamedir}/ref_gl.so
-#%attr(755,root,root) %{_gamedir}/ref_gl.la
-
-#%files 3DFX
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_bindir}/quake2-3DFX
-#%{_gamedir}/quake2/lib3dfxgl.so
-#%{_gamedir}/quake2/lib3dfxgl.la
-#%{_gamedir}/quake2/ref_gl.so
-#%{_gamedir}/quake2/ref_gl.la
-
-%files GLX
+%files sdl
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_xbindir}/quake2-GLX
-%attr(755,root,root) %{_gamedir}/ref_glx.so
-%attr(755,root,root) %{_gamedir}/ref_glx.la
+%attr(755,root,root) %{_gamelibdir}/ref_softsdl.so
+%attr(755,root,root) %{_gamelibdir}/ref_softsdl.la
+
+%files sgl
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_gamelibdir}/ref_sdlgl.so
+%attr(755,root,root) %{_gamelibdir}/ref_sdlgl.la
+
+%files svga
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_gamelibdir}/ref_soft.so
+%attr(755,root,root) %{_gamelibdir}/ref_soft.la
+
+%files x11
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_gamelibdir}/ref_softx.so
+%attr(755,root,root) %{_gamelibdir}/ref_softx.la
