@@ -144,7 +144,8 @@ autoheader
 
 %configure \
 	--enable-ltdl-install=no \
-	--libdir=/usr/lib/games
+	--libdir=/usr/lib/games \
+	--datadir=/usr/share/games
 
 %{__make}
 
@@ -174,8 +175,8 @@ install %{SOURCE4} $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/server.cfg
 install %{SOURCE5} $RPM_BUILD_ROOT/etc/rc.d/init.d/quake2-server
 install %{SOURCE6} $RPM_BUILD_ROOT%{_pixmapsdir}
 
-ln -sf %{_gamedir}/baseq2/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/gamei386.so
-ln -sf %{_gamedir}/ctf/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/ctf/gamei386.so
+#ln -sf %{_gamedir}/baseq2/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/gamei386.so
+#ln -sf %{_gamedir}/ctf/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/ctf/gamei386.so
 
 q2ver="GLX Mesa3D X11"
 
@@ -211,7 +212,9 @@ fi
 %attr(755,root,root)%{_bindir}/quake2
 %dir %{_gamedir}
 %attr(755,root,root) %{_gamedir}/baseq2/game.so
+%attr(755,root,root) %{_gamedir}/baseq2/game.la
 %attr(755,root,root) %{_gamedir}/ctf/game.so
+%attr(755,root,root) %{_gamedir}/ctf/game.la
 #%{_gamedir}/baseq2/pak2.pak
 #%{_gamedir}/baseq2/players
 %{_gamedatadir}
@@ -227,27 +230,33 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/quake2-svgalib
 %attr(755,root,root) %{_gamedir}/ref_soft.so
+%attr(755,root,root) %{_gamedir}/ref_soft.la
 
 %files X11
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_xbindir}/quake2-X11
 %attr(755,root,root) %{_gamedir}/ref_softx.so
+%attr(755,root,root) %{_gamedir}/ref_softx.la
 %{_applnkdir}/Games/quake2-X11.desktop
 
 #%files Mesa3D
 #%defattr(644,root,root,755)
 #%attr(755,root,root) %{_xbindir}/quake2-Mesa3D
 #%attr(755,root,root) %{_gamedir}/ref_gl.so
+#%attr(755,root,root) %{_gamedir}/ref_gl.la
 #%{_applnkdir}/Games/quake2-Mesa3D.desktop
 
 #%files 3DFX
 #%defattr(644,root,root,755)
 #%attr(755,root,root) %{_bindir}/quake2-3DFX
 #%{_gamedir}/quake2/lib3dfxgl.so
+#%{_gamedir}/quake2/lib3dfxgl.la
 #%{_gamedir}/quake2/ref_gl.so
+#%{_gamedir}/quake2/ref_gl.la
 
 %files GLX
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_xbindir}/quake2-GLX
 %attr(755,root,root) %{_gamedir}/ref_glx.so
+%attr(755,root,root) %{_gamedir}/ref_glx.la
 %{_applnkdir}/Games/quake2-GLX.desktop
