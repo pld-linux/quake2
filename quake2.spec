@@ -23,7 +23,6 @@ BuildRequires:	libltdl-devel
 BuildRequires:	libtool
 BuildRequires:	svgalib-devel
 BuildRequires:	SDL-devel
-BuildRequires:	nas-devel
 BuildRequires:	unzip
 Requires:	%{name}-renderer
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
