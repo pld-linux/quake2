@@ -1,16 +1,14 @@
 
-%define		_snapshot	20030116
-
 Summary:	Quake2 for linux
 Summary(pl):	Quake2 dla Linuksa
 Summary(pt_BR):	Quake2 para Linux
 Name:		quake2
-Version:	3.21.%{_snapshot}
-Release:	2
+Version:	20031005
+Release:	1
 License:	GPL (for code only)
 Group:		Applications/Games
-Source0:	%{name}-%{version}.tar.bz2
-# Source0-md5:	a53a19bfb06b29d6d66a049c8030c0da
+Source0:	http://www.kernel.pl/~mmazur/misc/%{name}-%{version}.tar.bz2
+# Source0-md5:	f8ff2cb2dbfa6c70c245e73f94cf2017
 #Source1:	multiplay pack (need to check licence)
 Source2:	%{name}-server.conf
 Source3:	%{name}-server
