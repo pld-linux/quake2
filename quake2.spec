@@ -1,7 +1,6 @@
 
 %define		_snapshot	20020815
 
-
 Summary:	Quake2 for linux
 Summary(pl):	Quake2 dla Linuksa
 Summary(pt_BR):	Quake2 para Linux
@@ -17,9 +16,12 @@ Source3:	%{name}-server
 Source4:	%{name}.png
 Patch0:		%{name}-gl_fix.patch
 URL:		http://www.idsoftware.com/games/quake/quake2/
-BuildRequires:	libltdl-devel
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libltdl-devel
+BuildRequires:	libtool
 BuildRequires:	svgalib-devel
 BuildRequires:	unzip
 Requires:	%{name}-renderer
@@ -161,10 +163,10 @@ cat configure.in |sed -e 's/AC_LIBLTDL_CONVENIENCE/AC_LIBLTDL_INSTALLABLE/' \
 mv -f configure.in.tmp configure.in
 
 %build
-aclocal
+%{__aclocal}
 autoheader
-%{__libtoolize} --copy --ltdl --automake
-%{__automake} --copy
+%{__libtoolize} --ltdl --automake
+%{__automake}
 %{__autoconf}
 
 %configure \
