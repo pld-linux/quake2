@@ -57,7 +57,7 @@ Quake2 - biblioteki statyczne
 Summary:	Quake2 server
 Summary(pl):	Serwer Quake2
 Summary(pt_BR):	Servidor Quake2
-Group:		X11/Applications/Games
+Group:		Applications/Games
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}
@@ -129,7 +129,7 @@ Biblioteki Quake2 do grania na SDL z obs³ug± GL.
 %package svga
 Summary:	Quake2 for SVGAlib
 Summary(pl):	Biblioteki Quake2 dla SVGAlib
-Group:		X11/Applications/Games
+Group:		Applications/Games
 Requires:	%{name} = %{version}
 Provides:	%{name}-renderer
 Obsoletes:	%{name}-svgalib
