@@ -10,7 +10,7 @@
 # Functions library
 . /etc/rc.d/init.d/functions
 
-HOME=/usr/share/games/quake2
+GHOME=/usr/share/games/quake2
 
 case "$1" in
   start)
@@ -18,7 +18,7 @@ case "$1" in
 	if [ ! -f /var/lock/subsys/quake2-server ]; then
 		msg_starting "Quake2 server"
 		busy
-		cd $HOME
+		cd $GHOME
     		/usr/bin/quake2id +set dedicated 1 +exec server.cfg > /dev/null &
 		deltext
 		ok
