@@ -4,12 +4,12 @@ Summary:	Quake2 for linux
 Summary(pl):	Quake2 dla Linuksa
 Summary(pt_BR):	Quake2 para Linux
 Name:		quake2
-Version:	20031005
-Release:	3
+Version:	0.3
+Release:	1
 License:	GPL (for code only)
 Group:		X11/Applications/Games
-Source0:	http://ep09.pld-linux.org/~mmazur/misc/%{name}-%{version}.tar.bz2
-# Source0-md5:	f8ff2cb2dbfa6c70c245e73f94cf2017
+source0:	ftp://ftp.quakeforge.net/quake2forge/%{name}-%{version}.tar.gz
+# Source0-md5:	2c167ff7edce20f0240316b98a1e4515
 #Source1:	multiplay pack (need to check licence)
 # ftp://ftp.idsoftware.com/idstuff/quake2/q2-3.20-x86-full.exe
 Source2:	%{name}-server.conf
@@ -156,8 +156,63 @@ Play Quake2 using software X11 renderer.
 %description x11 -l pl
 Zagraj w Quake2 przy u篡ciu programowego renderowania w X11.
 
+%package snd-oss
+Summary:	Quake2 oss sound plugin.
+Summary(pl):	Wtyczka d德i瘯u oss dla Quake2.
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}-%{release}
+Provides:	%{name}-sound-plugin
+
+%description snd-oss
+OSS sound plugin for Quake2. 
+
+%description -l pl
+Wtyczka d德i瘯u OSS dla Quake2.
+
+%package snd-sdl
+Summary:	Quake2 sdl sound plugin.
+Summary(pl):	Wtyczka d德i瘯u sdl dla Quake2.
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}-%{release}
+Provides:	%{name}-sound-plugin
+
+%description snd-sdl
+SDL sound plugin for Quake2.
+
+%description -l pl
+Wtyczka d德i瘯u SDL dla Quake2.
+
+%package snd-alsa
+Summary:	Quake2 alsa sound plugin.
+Summary(pl):	Wtyczka d德i瘯u alsa dla Quake2.
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}-%{release}
+Provides:	%{name}-sound-plugin
+
+%description snd-alsa
+Alsa sound plugin for Quake2.
+
+%description -l pl
+Wtyczka d德i瘯u alsa dla Quake2.
+
+%package snd-ao
+
+Summary:	Quake2 ao sound plugin.
+Summary(pl):	Wtyczka d德i瘯u ao dla Quake2.
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}-%{release}
+Provides:	%{name}-sound-plugin
+
+%description snd-ao
+Ao sound plugin for Quake2.
+
+%description -l pl
+Wtyczka d德i瘯u ao dla Quake2.
+
+Play Quake2 using ao sound plugin.
+
 %prep
-%setup -q -n %{name}
+%setup -q
 %patch0
 
 cat Makefile.am |sed -e 's/libltdl//'>Makefile.am.tmp
@@ -288,3 +343,19 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_gamelibdir}/ref_softx.so
 %{_gamelibdir}/ref_softx.la
+
+%files snd-oss
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_gamelibdir}/snd_oss.so
+
+%files snd-alsa
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_gamelibdir}/snd_alsa.so
+
+%files snd-ao
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_gamelibdir}/snd_ao.so
+
+%files snd-sdl
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_gamelibdir}/snd_sdl.so
