@@ -157,8 +157,8 @@ Play Quake2 using software X11 renderer.
 Zagraj w Quake2 przy u篡ciu programowego renderowania w X11.
 
 %package snd-oss
-Summary:	Quake2 oss sound plugin.
-Summary(pl):	Wtyczka d德i瘯u oss dla Quake2.
+Summary:	Quake2 OSS sound plugin
+Summary(pl):	Wtyczka d德i瘯u OSS dla Quake2
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 Provides:	%{name}-sound-plugin
@@ -170,8 +170,8 @@ OSS sound plugin for Quake2.
 Wtyczka d德i瘯u OSS dla Quake2.
 
 %package snd-sdl
-Summary:	Quake2 sdl sound plugin.
-Summary(pl):	Wtyczka d德i瘯u sdl dla Quake2.
+Summary:	Quake2 SDL sound plugin
+Summary(pl):	Wtyczka d德i瘯u SDL dla Quake2
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 Provides:	%{name}-sound-plugin
@@ -183,22 +183,21 @@ SDL sound plugin for Quake2.
 Wtyczka d德i瘯u SDL dla Quake2.
 
 %package snd-alsa
-Summary:	Quake2 alsa sound plugin.
-Summary(pl):	Wtyczka d德i瘯u alsa dla Quake2.
+Summary:	Quake2 ALSA sound plugin
+Summary(pl):	Wtyczka d德i瘯u ALSA dla Quake2
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 Provides:	%{name}-sound-plugin
 
 %description snd-alsa
-Alsa sound plugin for Quake2.
+ALSA sound plugin for Quake2.
 
 %description -l pl
-Wtyczka d德i瘯u alsa dla Quake2.
+Wtyczka d德i瘯u ALSA dla Quake2.
 
 %package snd-ao
-
-Summary:	Quake2 ao sound plugin.
-Summary(pl):	Wtyczka d德i瘯u ao dla Quake2.
+Summary:	Quake2 ao sound plugin
+Summary(pl):	Wtyczka d德i瘯u ao dla Quake2
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 Provides:	%{name}-sound-plugin
@@ -208,8 +207,6 @@ Ao sound plugin for Quake2.
 
 %description -l pl
 Wtyczka d德i瘯u ao dla Quake2.
-
-Play Quake2 using ao sound plugin.
 
 %prep
 %setup -q
