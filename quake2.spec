@@ -19,6 +19,7 @@ Source5:	%{name}-server
 Source6:	%{name}.png
 Patch0:		%{name}-gl_fix.patch
 URL:		http://www.idsoftware.com/games/quake/quake2/
+BuildRequires:	libltdl-devel
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	svgalib-devel
