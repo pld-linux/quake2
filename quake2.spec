@@ -10,6 +10,7 @@ Release:	1
 License:	GPL (for code only)
 Group:		Applications/Games
 Source0:	%{name}-%{version}.tar.bz2
+# Source0-md5:	a53a19bfb06b29d6d66a049c8030c0da
 #Source1:	multiplay pack (need to check licence)
 Source2:	%{name}-server.conf
 Source3:	%{name}-server
