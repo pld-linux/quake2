@@ -22,6 +22,7 @@ BuildRequires:	automake
 BuildRequires:	libltdl-devel
 BuildRequires:	libtool
 BuildRequires:	svgalib-devel
+BuildRequires:	SDL-devel
 BuildRequires:	nas-devel
 BuildRequires:	unzip
 Requires:	%{name}-renderer
@@ -172,7 +173,8 @@ mv -f configure.in.tmp configure.in
 	--enable-ltdl-install=no \
 	--libdir=%{_libdir}/games \
 	--datadir=%{_datadir}/games \
-	--enable-sdlsound
+	--enable-sdlsound \
+	--with-opengl=/usr/X11R6
 
 %{__make}
 
