@@ -23,11 +23,11 @@ BuildRequires:	SDL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	libao-devel >= 0.8.5
 BuildRequires:	libltdl-devel
 BuildRequires:	libtool
 BuildRequires:	svgalib-devel
 BuildRequires:	unzip
-BuildRequires: libao-devel >= 0.8.5
 Requires:	%{name}-renderer
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
