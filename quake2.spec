@@ -231,8 +231,8 @@ fi
 %{_gamelibdir}/baseq2/game.la
 %attr(755,root,root) %{_gamelibdir}/ctf/game.so
 %{_gamelibdir}/ctf/game.la
-#%{_gamedir}/baseq2/pak2.pak
-#%{_gamedir}/baseq2/players
+#%%{_gamedir}/baseq2/pak2.pak
+#%%{_gamedir}/baseq2/players
 %dir %{_gamedatadir}
 %dir %{_gamedatadir}/baseq2
 %{_pixmapsdir}/quake2.png
