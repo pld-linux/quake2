@@ -7,7 +7,7 @@ Version:	20031005
 Release:	1
 License:	GPL (for code only)
 Group:		Applications/Games
-Source0:	http://www.kernel.pl/~mmazur/misc/%{name}-%{version}.tar.bz2
+Source0:	http://ep09.pld-linux.org/~mmazur/misc/%{name}-%{version}.tar.bz2
 # Source0-md5:	f8ff2cb2dbfa6c70c245e73f94cf2017
 #Source1:	multiplay pack (need to check licence)
 Source2:	%{name}-server.conf
