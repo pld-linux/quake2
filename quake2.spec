@@ -3,7 +3,7 @@ Summary(pl):	Quake2 dla Linuksa
 Summary(pt_BR):	Quake2 para Linux
 Name:		quake2
 Version:	3.21
-Release:	2
+Release:	3
 License:	GPL (for code only)
 Group:		Applications/Games
 Source0:	ftp://ftp.idsoftware.com/idstuff/source/q2source-%{version}.zip
@@ -129,7 +129,7 @@ mv -f Makefile.tmp linux/Makefile
 rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{_bindir},/etc/rc.d/init.d,/etc/sysconfig}
-install -d $RPM_BUILD_ROOT{%{_gamedir}/baseq2,%{_gamedatadir}/baseq2}
+install -d $RPM_BUILD_ROOT{%{_gamedir},%{_gamedatadir}/baseq2}
 
 #$RPM_BUILD_ROOT%{_gamedir}/baseq2/players/{crakhor,cyborg,female,male}
 
@@ -140,16 +140,16 @@ install -d $RPM_BUILD_ROOT{%{_gamedir}/baseq2,%{_gamedatadir}/baseq2}
 
 cd linux/releasei386-glibc
 
-install gamei386.so $RPM_BUILD_ROOT%{_gamedir}/baseq2
+install gamei386.so $RPM_BUILD_ROOT%{_gamedir}
 install quake2 $RPM_BUILD_ROOT%{_bindir}/quake2id
 install ref_*.so $RPM_BUILD_ROOT%{_gamedir}
 
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/quake2
 install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
-install %{SOURCE4} $RPM_BUILD_ROOT%{_gamedir}/baseq2/server.cfg
+install %{SOURCE4} $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/server.cfg
 install %{SOURCE5} $RPM_BUILD_ROOT/etc/rc.d/init.d/quake2-server
 
-ln -sf %{_gamedir}/baseq2/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/gamei386.so
+ln -sf %{_gamedir}/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/gamei386.so
 
 cd $RPM_BUILD_ROOT%{_bindir} ; tar zxfv %{SOURCE1}
 
@@ -175,8 +175,7 @@ fi
 %doc *hanges.txt readme.txt linux/README linux/README-3.21-RELEASE
 %attr(755,root,root)%{_bindir}/quake2id
 %dir %{_gamedir}
-%dir %{_gamedir}/baseq2
-%attr(755,root,root) %{_gamedir}/baseq2/gamei386.so
+%attr(755,root,root) %{_gamedir}/gamei386.so
 #%{_gamedir}/baseq2/pak2.pak
 #%{_gamedir}/baseq2/players
 %{_gamedatadir}
@@ -186,7 +185,7 @@ fi
 %files server
 %defattr(644,root,root,755)
 %attr(754,root,root) /etc/rc.d/init.d/quake2-server
-%config(noreplace) %verify(not size mtime md5) %{_gamedir}/baseq2/server.cfg
+%config(noreplace) %verify(not size mtime md5) %{_gamedatadir}/baseq2/server.cfg
 
 %files svgalib
 %defattr(644,root,root,755)
