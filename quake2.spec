@@ -38,11 +38,11 @@ Requires:	svgalib >= 1.2.13
 Provides:	%{name}-renderer
 
 %description svgalib
-Quake2 libraries for SVGAlib play 
+Quake2 libraries for SVGAlib play
 
 %description svgalib -l pl
-Biblioteki Quake2 do grania na SVGAlib
 # -------------------- END SVGALIB subpackage -------------------------------
+Biblioteki Quake2 do grania na SVGAlib
 
 
 # -------------------- BEGIN software-X11  subpackage -------------------------------
@@ -58,8 +58,8 @@ Provides:	%{name}-renderer
 Play Quake2 using software X11 renderer
 
 %description software-X11 -l pl
-Zagraj w Quake2 przy urzyciu programowego renderowania w X11
 # -------------------- END software-X11 subpackage -------------------------------
+Zagraj w Quake2 przy urzyciu programowego renderowania w X11
 
 
 
@@ -76,8 +76,8 @@ Provides:	%{name}-renderer
 Play Quake2 using Mesa3D software acceleration
 
 %description Mesa3D -l pl
-Zagraj w Quake2 przy urzyciu programowego renderowania Mesa3D
 # -------------------- END Mesa3D subpackage -------------------------------
+Zagraj w Quake2 przy urzyciu programowego renderowania Mesa3D
 
 
 
@@ -94,8 +94,8 @@ Provides:	%{name}-renderer
 Play Quake2 using 3DFX acceleration
 
 %description 3DFX -l pl
-Zagraj w Quake2 z akceleracj± 3DFX
 # -------------------- END Mesa3D subpackage -------------------------------
+Zagraj w Quake2 z akceleracj± 3DFX
 
 
 
@@ -112,8 +112,8 @@ Provides:	%{name}-renderer
 Play Quake2 using hardware OpenGL acceleration
 
 %description GLX -l pl
-Zagraj w Quake2 ze sprzêtow± akceleracj± OpenGL
 # -------------------- END Mesa3D subpackage -------------------------------
+Zagraj w Quake2 ze sprzêtow± akceleracj± OpenGL
 
 
 
@@ -132,8 +132,8 @@ Quake2 server
 Servidor Quake2
 
 %description server -l pl
-Serwer Quake2 dla Linuksa
 # -------------------- END SERVER subpackage -------------------------------
+Serwer Quake2 dla Linuksa
 
 # -------------------- END packages definitions ----------------------------
 # **************************************************************************
@@ -153,17 +153,17 @@ install -d $RPM_BUILD_ROOT%{_gamedir}/quake2/baseq2/players/{crakhor,cyborg,fema
 for i in crakhor cyborg female male ; do
         install baseq2/players/$i/* $RPM_BUILD_ROOT%{_gamedir}/quake2/baseq2/players/$i
 done
-	
+
 install baseq2/gamei386.so	$RPM_BUILD_ROOT%{_gamedir}/quake2/baseq2/gamei386.so
 install baseq2/pak2.pak		$RPM_BUILD_ROOT%{_gamedir}/quake2/baseq2
 install quake2			$RPM_BUILD_ROOT%{_bindir}/quake2id
 install lib3dfxgl.so		$RPM_BUILD_ROOT%{_gamedir}/quake2
 install libMesaGL.so.2.6	$RPM_BUILD_ROOT%{_gamedir}/quake2
-	
+
 for i in gl glx soft softx ; do
         install ref_$i.so $RPM_BUILD_ROOT%{_gamedir}/quake2
 done
-		
+
 #install %{SOURCE1}	$RPM_BUILD_ROOT%{_bindir}/quake2
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/sysconfig/quake2
 install %{SOURCE3}	$RPM_BUILD_ROOT%{_sysconfdir}
@@ -228,28 +228,28 @@ fi
 %config %{_gamedir}/quake2/baseq2/server.cfg
 
 %files svgalib
-%defattr(755,root,root,755)
-%{_bindir}/quake2-svgalib
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/quake2-svgalib
 %{_gamedir}/quake2/ref_soft.so
 
 %files software-X11
-%defattr(755,root,root,755)
-%{_bindir}/quake2-software-X11
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/quake2-software-X11
 %{_gamedir}/quake2/ref_softx.so
 
 %files Mesa3D
-%defattr(755,root,root,755)
-%{_bindir}/quake2-Mesa3D
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/quake2-Mesa3D
 %{_gamedir}/quake2/libMesaGL.so.2.6
 %{_gamedir}/quake2/ref_gl.so
 
 %files 3DFX
-%defattr(755,root,root,755)
-%{_bindir}/quake2-3DFX
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/quake2-3DFX
 %{_gamedir}/quake2/lib3dfxgl.so
 %{_gamedir}/quake2/ref_gl.so
 
 %files GLX
-%defattr(755,root,root,755)
-%{_bindir}/quake2-GLX
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/quake2-GLX
 %{_gamedir}/quake2/ref_glx.so
