@@ -1,4 +1,5 @@
-
+# TODO:
+# - ipv6 support
 Summary:	Quake2 for linux
 Summary(pl):	Quake2 dla Linuksa
 Summary(pt_BR):	Quake2 para Linux
@@ -10,6 +11,7 @@ Group:		Applications/Games
 Source0:	http://ep09.pld-linux.org/~mmazur/misc/%{name}-%{version}.tar.bz2
 # Source0-md5:	f8ff2cb2dbfa6c70c245e73f94cf2017
 #Source1:	multiplay pack (need to check licence)
+# ftp://ftp.idsoftware.com/idstuff/quake2/q2-3.20-x86-full.exe
 Source2:	%{name}-server.conf
 Source3:	%{name}-server
 Source4:	%{name}.png
