@@ -17,13 +17,13 @@ Source3:	%{name}-server
 Source4:	%{name}.png
 URL:		http://www.idsoftware.com/games/quake/quake2/
 BuildRequires:	OpenGL-devel
+BuildRequires:	SDL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libltdl-devel
 BuildRequires:	libtool
 BuildRequires:	svgalib-devel
-BuildRequires:	SDL-devel
 BuildRequires:	unzip
 Requires:	%{name}-renderer
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -183,7 +183,8 @@ mv -f configure.in.tmp configure.in
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{_gamedatadir}/baseq2,/etc/rc.d/init.d} \
 	$RPM_BUILD_ROOT{%{_pixmapsdir},%{_applnkdir}/Games}
@@ -226,7 +227,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING HACKING README TODO docs/*
-%attr(755,root,root)%{_bindir}/quake2
+%attr(755,root,root) %{_bindir}/quake2
 %dir %{_gamelibdir}
 %dir %{_gamelibdir}/baseq2
 %dir %{_gamelibdir}/ctf
