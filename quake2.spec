@@ -1,5 +1,5 @@
 
-%define		_snapshot	20020815
+%define		_snapshot	20030116
 
 Summary:	Quake2 for linux
 Summary(pl):	Quake2 dla Linuksa
@@ -14,7 +14,6 @@ Source0:	%{name}-%{version}.tar.bz2
 Source2:	%{name}-server.conf
 Source3:	%{name}-server
 Source4:	%{name}.png
-Patch0:		%{name}-gl_fix.patch
 URL:		http://www.idsoftware.com/games/quake/quake2/
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
@@ -23,6 +22,7 @@ BuildRequires:	automake
 BuildRequires:	libltdl-devel
 BuildRequires:	libtool
 BuildRequires:	svgalib-devel
+BuildRequires:	nas-devel
 BuildRequires:	unzip
 Requires:	%{name}-renderer
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -153,7 +153,6 @@ Zagraj w Quake2 przy u¿yciu programowego renderowania w X11.
 
 %prep
 %setup -q -n %{name}
-%patch0
 
 cat Makefile.am |sed -e 's/libltdl//'>Makefile.am.tmp
 mv -f Makefile.am.tmp Makefile.am
@@ -172,7 +171,8 @@ mv -f configure.in.tmp configure.in
 %configure \
 	--enable-ltdl-install=no \
 	--libdir=%{_libdir}/games \
-	--datadir=%{_datadir}/games
+	--datadir=%{_datadir}/games \
+	--enable-sdlsound
 
 %{__make}
 
