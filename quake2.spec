@@ -181,7 +181,9 @@ fi
 
 %preun server
 if [ "$1" = "0" ]; then
-	/etc/rc.d/init.d/quake2-server stop 1>&2
+	if [ -f /var/lock/subsys/quake2-server ]; then
+		/etc/rc.d/init.d/quake2-server stop 1>&2
+	fi
 	/sbin/chkconfig --del quake2-server
 fi
 
