@@ -57,6 +57,8 @@ Summary:	Quake2 server
 Summary(pl):	Serwer Quake2
 Summary(pt_BR):	Servidor Quake2
 Group:		Applications/Games
+PreReq:		rc-scripts
+Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}
 
 %description server
