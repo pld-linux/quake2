@@ -8,7 +8,7 @@ Version:	0.3
 Release:	1
 License:	GPL (for code only)
 Group:		X11/Applications/Games
-source0:	ftp://ftp.quakeforge.net/quake2forge/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.quakeforge.net/quake2forge/%{name}-%{version}.tar.gz
 # Source0-md5:	2c167ff7edce20f0240316b98a1e4515
 #Source1:	multiplay pack (need to check licence)
 # ftp://ftp.idsoftware.com/idstuff/quake2/q2-3.20-x86-full.exe
@@ -279,7 +279,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING HACKING README TODO docs/*
+%doc AUTHORS HACKING README TODO docs/*
 %attr(755,root,root) %{_bindir}/quake2
 %dir %{_gamelibdir}
 %dir %{_gamelibdir}/baseq2
