@@ -144,8 +144,8 @@ autoheader
 
 %configure \
 	--enable-ltdl-install=no \
-	--libdir=/usr/lib/games \
-	--datadir=/usr/share/games
+	--libdir=%{_gamedir} \
+	--datadir=%{_gamedatadir}
 
 %{__make}
 
@@ -178,10 +178,8 @@ install %{SOURCE6} $RPM_BUILD_ROOT%{_pixmapsdir}
 #ln -sf %{_gamedir}/baseq2/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/gamei386.so
 #ln -sf %{_gamedir}/ctf/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/ctf/gamei386.so
 
-
-desktopfile="$RPM_BUILD_ROOT%{_applnkdir}/Games/%{name}.desktop"
 echo "[Desktop Entry]\nName=Quake II\nExec=%{name}\nIcon=%{name}.png \
-\nTerminal=0\nType=Application\n" > $desktopfile
+\nTerminal=0\nType=Application\n" > $RPM_BUILD_ROOT%{_applnkdir}/Games/%{name}.desktop
 
 %clean
 rm -rf $RPM_BUILD_ROOT
