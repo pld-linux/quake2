@@ -1,10 +1,10 @@
 Name:		quake2
-Version:	3.17
+Version:	3.20
 Release:	1
 Summary:	Quake2 for linux
 Summary(pl):	Quake2 dla Linuksa
 Summary(pt_BR):	Quake2 para Linux
-Source0:	ftp://ftp.cdrom.com/pub/idgames/idstuff/quake2/unix/%{name}-317-i386-unknown-linux2.0.tar.gz
+Source0:	ftp://3darchives.in-span.net/pub/idgames/idstuff/quake2/unix/quake2-3.20-glibc-i386-unknown-linux2.0.tar.gz
 Source1:	%{name}
 Source2:	sysconfig.%{name}
 Source3:	%{name}.conf
