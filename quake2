@@ -1,0 +1,23 @@
+#!/bin/sh
+# quake2
+# Arnaldo Carvalho de Melo <acme@conectiva.com.br>
+# qua mai  6 14:15:23 EST 1998
+
+if [ -f /etc/sysconfig/quake2 ]
+  then
+    . /etc/sysconfig/quake2
+fi
+
+cd /usr/lib/quake2
+
+if [ "$SOUND" = "yes" -a "$CDAUDIO" = "yes" ]
+  then
+    /usr/bin/quake2id
+  else
+    if [ "$SOUND" = "yes" ]
+      then
+        /usr/bin/quake2id +set nocdaudio 1
+      else
+        /usr/bin/quake2id +set nocdaudio 1
+    fi
+fi
