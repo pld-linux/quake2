@@ -4,7 +4,7 @@ Summary(pl):	Quake2 dla Linuksa
 Summary(pt_BR):	Quake2 para Linux
 Name:		quake2
 Version:	20031005
-Release:	1
+Release:	2
 License:	GPL (for code only)
 Group:		Applications/Games
 Source0:	http://ep09.pld-linux.org/~mmazur/misc/%{name}-%{version}.tar.bz2
