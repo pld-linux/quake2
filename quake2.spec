@@ -6,7 +6,7 @@ Summary(pl):	Quake2 dla Linuksa
 Summary(pt_BR):	Quake2 para Linux
 Name:		quake2
 Version:	3.21.%{_snapshot}
-Release:	1
+Release:	2
 License:	GPL (for code only)
 Group:		Applications/Games
 Source0:	%{name}-%{version}.tar.bz2
@@ -15,6 +15,7 @@ Source0:	%{name}-%{version}.tar.bz2
 Source2:	%{name}-server.conf
 Source3:	%{name}-server
 Source4:	%{name}.png
+Patch0:		%{name}-stupid_nvidia_bug.patch
 URL:		http://www.idsoftware.com/games/quake/quake2/
 BuildRequires:	OpenGL-devel
 BuildRequires:	SDL-devel
@@ -156,6 +157,7 @@ Zagraj w Quake2 przy u¿yciu programowego renderowania w X11.
 
 %prep
 %setup -q -n %{name}
+%patch0
 
 cat Makefile.am |sed -e 's/libltdl//'>Makefile.am.tmp
 mv -f Makefile.am.tmp Makefile.am
