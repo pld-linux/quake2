@@ -178,13 +178,10 @@ install %{SOURCE6} $RPM_BUILD_ROOT%{_pixmapsdir}
 #ln -sf %{_gamedir}/baseq2/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/gamei386.so
 #ln -sf %{_gamedir}/ctf/gamei386.so $RPM_BUILD_ROOT%{_gamedatadir}/ctf/gamei386.so
 
-q2ver="GLX Mesa3D X11"
 
-for f in $q2ver; do
-	desktopfile="$RPM_BUILD_ROOT%{_applnkdir}/Games/%{name}-$f.desktop"
-	echo "[Desktop Entry]\nName=Quake II ($f)\nExec=%{name}-$f\nIcon=%{name}.png \
-	\nTerminal=0\nType=Application\n" > $desktopfile
-done
+desktopfile="$RPM_BUILD_ROOT%{_applnkdir}/Games/%{name}.desktop"
+echo "[Desktop Entry]\nName=Quake II\nExec=%{name}\nIcon=%{name}.png \
+\nTerminal=0\nType=Application\n" > $desktopfile
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -220,6 +217,7 @@ fi
 %{_gamedatadir}
 %{_pixmapsdir}/quake2.png
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/quake2.conf
+%{_applnkdir}/Games/quake2.desktop
 
 %files server
 %defattr(644,root,root,755)
@@ -237,14 +235,12 @@ fi
 %attr(755,root,root) %{_xbindir}/quake2-X11
 %attr(755,root,root) %{_gamedir}/ref_softx.so
 %attr(755,root,root) %{_gamedir}/ref_softx.la
-%{_applnkdir}/Games/quake2-X11.desktop
 
 #%files Mesa3D
 #%defattr(644,root,root,755)
 #%attr(755,root,root) %{_xbindir}/quake2-Mesa3D
 #%attr(755,root,root) %{_gamedir}/ref_gl.so
 #%attr(755,root,root) %{_gamedir}/ref_gl.la
-#%{_applnkdir}/Games/quake2-Mesa3D.desktop
 
 #%files 3DFX
 #%defattr(644,root,root,755)
@@ -259,4 +255,3 @@ fi
 %attr(755,root,root) %{_xbindir}/quake2-GLX
 %attr(755,root,root) %{_gamedir}/ref_glx.so
 %attr(755,root,root) %{_gamedir}/ref_glx.la
-%{_applnkdir}/Games/quake2-GLX.desktop
