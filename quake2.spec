@@ -74,7 +74,7 @@ Servidor Quake2.
 %package 3dfx
 Summary:	Quake2 3DFX libs
 Summary(pl):	Biblioteki 3DFX dla Quake2
-Group:		Applications/Games
+Group:		X11/Applications/Games
 Requires:	%{name} = %{version}
 Provides:	%{name}-renderer
 Obsoletes:	%{name}-3DFX
