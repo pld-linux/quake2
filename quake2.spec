@@ -45,7 +45,7 @@ Quake2 para Linux!
 Summary:	Quake2 - static libs
 Summary(pl):	Quake2 - biblioteki statyczne
 Group:		X11/Applications/Games
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description static
 Quake2 - static libs
@@ -60,7 +60,7 @@ Summary(pt_BR):	Servidor Quake2
 Group:		Applications/Games
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description server
 Quake2 server.
@@ -75,7 +75,7 @@ Servidor Quake2.
 Summary:	Quake2 3DFX libs
 Summary(pl):	Biblioteki 3DFX dla Quake2
 Group:		X11/Applications/Games
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Provides:	%{name}-renderer
 Obsoletes:	%{name}-3DFX
 
@@ -89,7 +89,7 @@ Zagraj w Quake2 z akceleracj± 3DFX.
 Summary:	OpenGL Quake2
 Summary(pl):	Quake2 OpenGL
 Group:		X11/Applications/Games
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Requires:	OpenGL
 Provides:	%{name}-renderer
 Obsoletes:	%{name}-GLX
@@ -104,7 +104,7 @@ Zagraj w Quake2 ze sprzêtow± akceleracj± OpenGL.
 Summary:	Quake2 for SDL
 Summary(pl):	Biblioteki Quake2 dla SDL
 Group:		X11/Applications/Games
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Provides:	%{name}-renderer
 
 %description sdl
@@ -117,7 +117,7 @@ Biblioteki Quake2 do grania na SDL.
 Summary:	Quake2 for SDL with GL
 Summary(pl):	Biblioteki Quake2 dla SDL z obs³ug± GL
 Group:		X11/Applications/Games
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Provides:	%{name}-renderer
 
 %description sgl
@@ -130,7 +130,7 @@ Biblioteki Quake2 do grania na SDL z obs³ug± GL.
 Summary:	Quake2 for SVGAlib
 Summary(pl):	Biblioteki Quake2 dla SVGAlib
 Group:		Applications/Games
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Provides:	%{name}-renderer
 Obsoletes:	%{name}-svgalib
 
@@ -144,7 +144,7 @@ Biblioteki Quake2 do grania na SVGAlib.
 Summary:	Quake2 X11 software renderer libs
 Summary(pl):	Biblioteka Quake2 - programowe renderowanie
 Group:		X11/Applications/Games
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Provides:	%{name}-renderer
 Obsoletes:	%{name}-software-X11
 Obsoletes:	%{name}-X11
