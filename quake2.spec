@@ -27,6 +27,7 @@ BuildRequires:	libltdl-devel
 BuildRequires:	libtool
 BuildRequires:	svgalib-devel
 BuildRequires:	unzip
+BuildRequires: libao-devel >= 0.8.5
 Requires:	%{name}-renderer
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -256,7 +257,7 @@ install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d
 install %{SOURCE4} $RPM_BUILD_ROOT%{_pixmapsdir}
 install %{SOURCE5} $RPM_BUILD_ROOT%{_desktopdir}/%{name}.desktop
 
-rm -rf docs/{CVS,ctf/CVS}
+rm -rf docs/{CVS,Makefile*,ctf/CVS,ctf/Makefile*}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
