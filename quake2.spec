@@ -5,7 +5,7 @@ Summary(pl):	Quake2 dla Linuksa
 Summary(pt_BR):	Quake2 para Linux
 Name:		quake2
 Version:	20031005
-Release:	2
+Release:	3
 License:	GPL (for code only)
 Group:		X11/Applications/Games
 Source0:	http://ep09.pld-linux.org/~mmazur/misc/%{name}-%{version}.tar.bz2
@@ -15,6 +15,7 @@ Source0:	http://ep09.pld-linux.org/~mmazur/misc/%{name}-%{version}.tar.bz2
 Source2:	%{name}-server.conf
 Source3:	%{name}-server
 Source4:	%{name}.png
+Source5:	%{name}.desktop
 Patch0:		%{name}-stupid_nvidia_bug.patch
 URL:		http://www.idsoftware.com/games/quake/quake2/
 BuildRequires:	OpenGL-devel
@@ -189,7 +190,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{_gamedatadir}/baseq2,/etc/rc.d/init.d} \
-	$RPM_BUILD_ROOT{%{_pixmapsdir},%{_applnkdir}/Games}
+	$RPM_BUILD_ROOT{%{_pixmapsdir},%{_desktopdir}}
 
 #$RPM_BUILD_ROOT%{_gamedir}/baseq2/players/{crakhor,cyborg,female,male}
 
@@ -201,9 +202,7 @@ install -d $RPM_BUILD_ROOT{%{_gamedatadir}/baseq2,/etc/rc.d/init.d} \
 install %{SOURCE2} $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/server.cfg
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d
 install %{SOURCE4} $RPM_BUILD_ROOT%{_pixmapsdir}
-
-echo "[Desktop Entry]\nName=Quake II\nExec=%{name}\nIcon=%{name}.png \
-\nTerminal=0\nType=Application\n" > $RPM_BUILD_ROOT%{_applnkdir}/Games/%{name}.desktop
+install %{SOURCE5} $RPM_BUILD_ROOT%{_desktopdir}/%{name}.desktop
 
 rm -rf docs/{CVS,ctf/CVS}
 
@@ -242,7 +241,7 @@ fi
 %dir %{_gamedatadir}
 %dir %{_gamedatadir}/baseq2
 %{_pixmapsdir}/quake2.png
-%{_applnkdir}/Games/quake2.desktop
+%{_desktopdir}/quake2.desktop
 
 %files static
 %defattr(644,root,root,755)
