@@ -10,7 +10,7 @@
 # Functions library
 . /etc/rc.d/init.d/functions
 
-HOME=/usr/lib/quake2
+HOME=/usr/share/games/quake2
 
 case "$1" in
   start)
