@@ -6,8 +6,6 @@ Version:	3.20
 Release:	1
 License:	distributable
 Group:		Applications/Games
-Group(de):	Applikationen/Spiele
-Group(pl):	Aplikacje/Gry
 Source0:	ftp://3darchives.in-span.net/pub/idgames/idstuff/quake2/unix/%{name}-%{version}-glibc-i386-unknown-linux2.0.tar.gz
 Source1:	%{name}-scripts.tgz
 Source2:	%{name}.sysconfig
@@ -35,8 +33,6 @@ Quake2 para Linux!
 Summary:	Quake2 for SVGAlib
 Summary(pl):	Biblioteki Quake2 dla SVGAlib
 Group:		Applications/Games
-Group(de):	Applikationen/Spiele
-Group(pl):	Aplikacje/Gry
 Requires:	%{name} = %{version}
 Requires:	svgalib >= 1.2.13
 Provides:	%{name}-renderer
@@ -54,8 +50,6 @@ Biblioteki Quake2 do grania na SVGAlib
 Summary:	Quake2 X11 software renderer libs
 Summary(pl):	Biblioteka Quake2 - programowe renderowanie
 Group:		Applications/Games
-Group(de):	Applikationen/Spiele
-Group(pl):	Aplikacje/Gry
 Requires:	%{name} = %{version}
 Requires:	XFree86
 Provides:	%{name}-renderer
@@ -74,8 +68,6 @@ Zagraj w Quake2 przy urzyciu programowego renderowania w X11
 Summary:	Quake2 X11 Mesa renderer libs
 Summary(pl):	Biblioteka Mesa dla Quake2
 Group:		Applications/Games
-Group(de):	Applikationen/Spiele
-Group(pl):	Aplikacje/Gry
 Requires:	%{name} = %{version}
 Requires:	XFree86
 Provides:	%{name}-renderer
@@ -94,8 +86,6 @@ Zagraj w Quake2 przy urzyciu programowego renderowania Mesa3D
 Summary:	Quake2 3DFX libs
 Summary(pl):	Biblioteki 3DFX dla Quake2
 Group:		Applications/Games
-Group(de):	Applikationen/Spiele
-Group(pl):	Aplikacje/Gry
 Requires:	%{name} = %{version}
 Requires:	XFree86
 Provides:	%{name}-renderer
@@ -114,8 +104,6 @@ Zagraj w Quake2 z akceleracj± 3DFX
 Summary:	OpenGL Quake2
 Summary(pl):	Quake2 OpenGL
 Group:		Applications/Games
-Group(de):	Applikationen/Spiele
-Group(pl):	Aplikacje/Gry
 Requires:	%{name} = %{version}
 Requires:	OpenGL
 Provides:	%{name}-renderer
@@ -135,8 +123,6 @@ Summary:	Quake2 server
 Summary(pl):	Serwer Quake2
 Summary(pt_BR):	Servidor Quake2
 Group:		Applications/Games
-Group(de):	Applikationen/Spiele
-Group(pl):	Aplikacje/Gry
 Requires:	%{name} = %{version}
 
 %description server
