@@ -103,7 +103,7 @@ Zagraj w Quake2 ze sprzêtow± akceleracj± OpenGL.
 %package sdl
 Summary:	Quake2 for SDL
 Summary(pl):	Biblioteki Quake2 dla SDL
-Group:		X11/Applications/Games
+Group:		Applications/Games
 Requires:	%{name} = %{version}-%{release}
 Provides:	%{name}-renderer
 
