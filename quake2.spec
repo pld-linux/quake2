@@ -212,7 +212,7 @@ echo "Now run /usr/bin/quake2-GLX "
 
 %post server
 /sbin/chkconfig --add quake2-server
-echo "Run \"/etc/rc.d/init.d/quake2 start\" to start Quake2 server." >&2
+echo "Run \"/etc/rc.d/init.d/quake2-server start\" to start Quake2 server." >&2
 
 %preun server
 if [ "$1" = "0" ]; then
