@@ -1,7 +1,7 @@
-# quake2
-# Arquivo de configuração do quake2
-# Changed by fastviper
+# Custom settings
 
-#SOUND=no
+# Enable sound in the game
 SOUND=yes
+
+# Play music from original Quake2 cd-rom
 CDAUDIO=no
