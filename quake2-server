@@ -28,8 +28,12 @@ case "$1" in
         $0 stop
         $0 start
         ;;
+  status)
+  	status /usr/bin/quake2id
+	exit $?
+	;;
   *)
-	echo "Usage: quake2-server {start|stop|restart}"
+	echo "Usage: quake2-server {start|stop|restart|status}"
 	exit 1
 esac
 
