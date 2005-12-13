@@ -61,9 +61,9 @@ Summary:	Quake2 server
 Summary(pl):	Serwer Quake2
 Summary(pt_BR):	Servidor Quake2
 Group:		Applications/Games
-PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	rc-scripts
 
 %description server
 Quake2 server.
@@ -166,7 +166,7 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-sound-plugin
 
 %description snd-oss
-OSS sound plugin for Quake2. 
+OSS sound plugin for Quake2.
 
 %description -l pl
 Wtyczka d¼wiêku OSS dla Quake2.
@@ -311,7 +311,7 @@ fi
 %files server
 %defattr(644,root,root,755)
 %attr(754,root,root) /etc/rc.d/init.d/quake2-server
-%config(noreplace) %verify(not size mtime md5) %{_gamedatadir}/baseq2/server.cfg
+%config(noreplace) %verify(not md5 mtime size) %{_gamedatadir}/baseq2/server.cfg
 
 %files 3dfx
 %defattr(644,root,root,755)
