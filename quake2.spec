@@ -1,5 +1,6 @@
 # TODO:
 # - ipv6 support
+# - -static without -devel makes no sense (remove -static)
 Summary:	Quake2 for linux
 Summary(pl):	Quake2 dla Linuksa
 Summary(pt_BR):	Quake2 para Linux
@@ -261,7 +262,11 @@ install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d
 install %{SOURCE4} $RPM_BUILD_ROOT%{_pixmapsdir}
 install %{SOURCE5} $RPM_BUILD_ROOT%{_desktopdir}/%{name}.desktop
 
-rm -rf docs/{CVS,Makefile*,ctf/CVS,ctf/Makefile*}
+rm -rf _doc
+cp -a docs _doc
+rm -rf _doc/{CVS,Makefile*,ctf/CVS,ctf/Makefile*}
+
+rm -f $RPM_BUILD_ROOT%{_libdir}/games/quake2/snd_{alsa,ao,oss,sdl}.{la,a}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -278,7 +283,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS HACKING README TODO docs/*
+%doc AUTHORS HACKING README TODO _doc/*
 %attr(755,root,root) %{_bindir}/quake2
 %dir %{_gamelibdir}
 %dir %{_gamelibdir}/baseq2
