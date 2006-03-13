@@ -28,6 +28,7 @@ BuildRequires:	automake
 BuildRequires:	libao-devel >= 0.8.5
 BuildRequires:	libltdl-devel
 BuildRequires:	libtool
+BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	svgalib-devel
 BuildRequires:	unzip
 Requires:	%{name}-renderer
@@ -81,7 +82,7 @@ Summary(pl):	Biblioteki 3DFX dla Quake2
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-renderer
-Obsoletes:	%{name}-3DFX
+Obsoletes:	quake2-3DFX
 
 %description 3dfx
 Play Quake2 using 3DFX acceleration.
@@ -96,7 +97,7 @@ Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	OpenGL
 Provides:	%{name}-renderer
-Obsoletes:	%{name}-GLX
+Obsoletes:	quake2-GLX
 
 %description glx
 Play Quake2 using hardware OpenGL acceleration.
@@ -136,7 +137,7 @@ Summary(pl):	Biblioteki Quake2 dla SVGAlib
 Group:		Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-renderer
-Obsoletes:	%{name}-svgalib
+Obsoletes:	quake2-svgalib
 
 %description svga
 Quake2 libraries for SVGAlib play.
@@ -150,8 +151,8 @@ Summary(pl):	Biblioteka Quake2 - programowe renderowanie
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-renderer
-Obsoletes:	%{name}-software-X11
-Obsoletes:	%{name}-X11
+Obsoletes:	quake2-X11
+Obsoletes:	quake2-software-X11
 
 %description x11
 Play Quake2 using software X11 renderer.
@@ -267,17 +268,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post server
 /sbin/chkconfig --add quake2-server
-if [ -f /var/lock/subsys/quake2-server ]; then
-	/etc/rc.d/init.d/quake2-server restart 1>&2
-else
-	echo "Run \"/etc/rc.d/init.d/quake2-server start\" to start Quake2 server."
-fi
+%service quake2-server restart "Quake2 server"
 
 %preun server
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/quake2-server ]; then
-		/etc/rc.d/init.d/quake2-server stop 1>&2
-	fi
+	%service quake2-server stop
 	/sbin/chkconfig --del quake2-server
 fi
 
