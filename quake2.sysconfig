@@ -1,7 +1,0 @@
-# Custom settings
-
-# Enable sound in the game
-SOUND=yes
-
-# Play music from original Quake2 cd-rom
-CDAUDIO=no
