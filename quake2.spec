@@ -30,6 +30,7 @@ BuildRequires:	libao-devel >= 0.8.5
 BuildRequires:	libltdl-devel
 BuildRequires:	libtool
 BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	sed >= 4.0
 BuildRequires:	svgalib-devel
 BuildRequires:	unzip
 Requires:	%{name}-renderer
@@ -218,12 +219,8 @@ Wtyczka d¼wiêku ao dla Quake2.
 %patch0
 %patch1 -p1
 
-cat Makefile.am |sed -e 's/libltdl//'>Makefile.am.tmp
-mv -f Makefile.am.tmp Makefile.am
-
-cat configure.in |sed -e 's/AC_LIBLTDL_CONVENIENCE/AC_LIBLTDL_INSTALLABLE/' \
->configure.in.tmp
-mv -f configure.in.tmp configure.in
+%{__sed} -i -e 's/libltdl//' Makefile.am
+%{__sed} -i -e 's/AC_LIBLTDL_CONVENIENCE/AC_LIBLTDL_INSTALLABLE/' configure.in
 
 %build
 %{__aclocal}
