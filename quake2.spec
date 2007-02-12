@@ -2,8 +2,8 @@
 # - ipv6 support
 # - -static without -devel makes no sense (remove -static)
 Summary:	Quake2 for linux
-Summary(pl):	Quake2 dla Linuksa
-Summary(pt_BR):	Quake2 para Linux
+Summary(pl.UTF-8):   Quake2 dla Linuksa
+Summary(pt_BR.UTF-8):   Quake2 para Linux
 Name:		quake2
 Version:	0.3
 Release:	3
@@ -42,28 +42,28 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Quake2 for linux!
 
-%description -l pl
+%description -l pl.UTF-8
 Quake2 dla Linuksa!
 
-%description -l pt_BR
+%description -l pt_BR.UTF-8
 Quake2 para Linux!
 
 %package static
 Summary:	Quake2 - static libs
-Summary(pl):	Quake2 - biblioteki statyczne
+Summary(pl.UTF-8):   Quake2 - biblioteki statyczne
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description static
 Quake2 - static libs
 
-%description static -l pl
+%description static -l pl.UTF-8
 Quake2 - biblioteki statyczne
 
 %package server
 Summary:	Quake2 server
-Summary(pl):	Serwer Quake2
-Summary(pt_BR):	Servidor Quake2
+Summary(pl.UTF-8):   Serwer Quake2
+Summary(pt_BR.UTF-8):   Servidor Quake2
 Group:		Applications/Games
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{epoch}:%{version}-%{release}
@@ -72,15 +72,15 @@ Requires:	rc-scripts
 %description server
 Quake2 server.
 
-%description server -l pl
+%description server -l pl.UTF-8
 Serwer Quake2 dla Linuksa.
 
-%description server -l pt_BR
+%description server -l pt_BR.UTF-8
 Servidor Quake2.
 
 %package 3dfx
 Summary:	Quake2 3DFX libs
-Summary(pl):	Biblioteki 3DFX dla Quake2
+Summary(pl.UTF-8):   Biblioteki 3DFX dla Quake2
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-renderer
@@ -89,12 +89,12 @@ Obsoletes:	quake2-3DFX
 %description 3dfx
 Play Quake2 using 3DFX acceleration.
 
-%description 3dfx -l pl
-Zagraj w Quake2 z akceleracj± 3DFX.
+%description 3dfx -l pl.UTF-8
+Zagraj w Quake2 z akceleracjÄ… 3DFX.
 
 %package glx
 Summary:	OpenGL Quake2
-Summary(pl):	Quake2 OpenGL
+Summary(pl.UTF-8):   Quake2 OpenGL
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	OpenGL
@@ -104,12 +104,12 @@ Obsoletes:	quake2-GLX
 %description glx
 Play Quake2 using hardware OpenGL acceleration.
 
-%description glx -l pl
-Zagraj w Quake2 ze sprzêtow± akceleracj± OpenGL.
+%description glx -l pl.UTF-8
+Zagraj w Quake2 ze sprzÄ™towÄ… akceleracjÄ… OpenGL.
 
 %package sdl
 Summary:	Quake2 for SDL
-Summary(pl):	Biblioteki Quake2 dla SDL
+Summary(pl.UTF-8):   Biblioteki Quake2 dla SDL
 Group:		Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-renderer
@@ -117,12 +117,12 @@ Provides:	%{name}-renderer
 %description sdl
 Quake2 libraries for SDL play.
 
-%description sdl -l pl
+%description sdl -l pl.UTF-8
 Biblioteki Quake2 do grania na SDL.
 
 %package sgl
 Summary:	Quake2 for SDL with GL
-Summary(pl):	Biblioteki Quake2 dla SDL z obs³ug± GL
+Summary(pl.UTF-8):   Biblioteki Quake2 dla SDL z obsÅ‚ugÄ… GL
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-renderer
@@ -130,12 +130,12 @@ Provides:	%{name}-renderer
 %description sgl
 Quake2 libraries for SDL with GL play.
 
-%description sgl -l pl
-Biblioteki Quake2 do grania na SDL z obs³ug± GL.
+%description sgl -l pl.UTF-8
+Biblioteki Quake2 do grania na SDL z obsÅ‚ugÄ… GL.
 
 %package svga
 Summary:	Quake2 for SVGAlib
-Summary(pl):	Biblioteki Quake2 dla SVGAlib
+Summary(pl.UTF-8):   Biblioteki Quake2 dla SVGAlib
 Group:		Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-renderer
@@ -144,12 +144,12 @@ Obsoletes:	quake2-svgalib
 %description svga
 Quake2 libraries for SVGAlib play.
 
-%description svga -l pl
+%description svga -l pl.UTF-8
 Biblioteki Quake2 do grania na SVGAlib.
 
 %package x11
 Summary:	Quake2 X11 software renderer libs
-Summary(pl):	Biblioteka Quake2 - programowe renderowanie
+Summary(pl.UTF-8):   Biblioteka Quake2 - programowe renderowanie
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-renderer
@@ -159,12 +159,12 @@ Obsoletes:	quake2-software-X11
 %description x11
 Play Quake2 using software X11 renderer.
 
-%description x11 -l pl
-Zagraj w Quake2 przy u¿yciu programowego renderowania w X11.
+%description x11 -l pl.UTF-8
+Zagraj w Quake2 przy uÅ¼yciu programowego renderowania w X11.
 
 %package snd-oss
 Summary:	Quake2 OSS sound plugin
-Summary(pl):	Wtyczka d¼wiêku OSS dla Quake2
+Summary(pl.UTF-8):   Wtyczka dÅºwiÄ™ku OSS dla Quake2
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-sound-plugin
@@ -172,12 +172,12 @@ Provides:	%{name}-sound-plugin
 %description snd-oss
 OSS sound plugin for Quake2.
 
-%description -l pl
-Wtyczka d¼wiêku OSS dla Quake2.
+%description -l pl.UTF-8
+Wtyczka dÅºwiÄ™ku OSS dla Quake2.
 
 %package snd-sdl
 Summary:	Quake2 SDL sound plugin
-Summary(pl):	Wtyczka d¼wiêku SDL dla Quake2
+Summary(pl.UTF-8):   Wtyczka dÅºwiÄ™ku SDL dla Quake2
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-sound-plugin
@@ -185,12 +185,12 @@ Provides:	%{name}-sound-plugin
 %description snd-sdl
 SDL sound plugin for Quake2.
 
-%description -l pl
-Wtyczka d¼wiêku SDL dla Quake2.
+%description -l pl.UTF-8
+Wtyczka dÅºwiÄ™ku SDL dla Quake2.
 
 %package snd-alsa
 Summary:	Quake2 ALSA sound plugin
-Summary(pl):	Wtyczka d¼wiêku ALSA dla Quake2
+Summary(pl.UTF-8):   Wtyczka dÅºwiÄ™ku ALSA dla Quake2
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-sound-plugin
@@ -198,12 +198,12 @@ Provides:	%{name}-sound-plugin
 %description snd-alsa
 ALSA sound plugin for Quake2.
 
-%description -l pl
-Wtyczka d¼wiêku ALSA dla Quake2.
+%description -l pl.UTF-8
+Wtyczka dÅºwiÄ™ku ALSA dla Quake2.
 
 %package snd-ao
 Summary:	Quake2 ao sound plugin
-Summary(pl):	Wtyczka d¼wiêku ao dla Quake2
+Summary(pl.UTF-8):   Wtyczka dÅºwiÄ™ku ao dla Quake2
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-sound-plugin
@@ -211,8 +211,8 @@ Provides:	%{name}-sound-plugin
 %description snd-ao
 Ao sound plugin for Quake2.
 
-%description -l pl
-Wtyczka d¼wiêku ao dla Quake2.
+%description -l pl.UTF-8
+Wtyczka dÅºwiÄ™ku ao dla Quake2.
 
 %prep
 %setup -q
