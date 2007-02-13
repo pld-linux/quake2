@@ -2,8 +2,8 @@
 # - ipv6 support
 # - -static without -devel makes no sense (remove -static)
 Summary:	Quake2 for linux
-Summary(pl.UTF-8):   Quake2 dla Linuksa
-Summary(pt_BR.UTF-8):   Quake2 para Linux
+Summary(pl.UTF-8):	Quake2 dla Linuksa
+Summary(pt_BR.UTF-8):	Quake2 para Linux
 Name:		quake2
 Version:	0.3
 Release:	3
@@ -50,7 +50,7 @@ Quake2 para Linux!
 
 %package static
 Summary:	Quake2 - static libs
-Summary(pl.UTF-8):   Quake2 - biblioteki statyczne
+Summary(pl.UTF-8):	Quake2 - biblioteki statyczne
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
@@ -62,8 +62,8 @@ Quake2 - biblioteki statyczne
 
 %package server
 Summary:	Quake2 server
-Summary(pl.UTF-8):   Serwer Quake2
-Summary(pt_BR.UTF-8):   Servidor Quake2
+Summary(pl.UTF-8):	Serwer Quake2
+Summary(pt_BR.UTF-8):	Servidor Quake2
 Group:		Applications/Games
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{epoch}:%{version}-%{release}
@@ -80,7 +80,7 @@ Servidor Quake2.
 
 %package 3dfx
 Summary:	Quake2 3DFX libs
-Summary(pl.UTF-8):   Biblioteki 3DFX dla Quake2
+Summary(pl.UTF-8):	Biblioteki 3DFX dla Quake2
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-renderer
@@ -94,7 +94,7 @@ Zagraj w Quake2 z akceleracją 3DFX.
 
 %package glx
 Summary:	OpenGL Quake2
-Summary(pl.UTF-8):   Quake2 OpenGL
+Summary(pl.UTF-8):	Quake2 OpenGL
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	OpenGL
@@ -109,7 +109,7 @@ Zagraj w Quake2 ze sprzętową akceleracją OpenGL.
 
 %package sdl
 Summary:	Quake2 for SDL
-Summary(pl.UTF-8):   Biblioteki Quake2 dla SDL
+Summary(pl.UTF-8):	Biblioteki Quake2 dla SDL
 Group:		Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-renderer
@@ -122,7 +122,7 @@ Biblioteki Quake2 do grania na SDL.
 
 %package sgl
 Summary:	Quake2 for SDL with GL
-Summary(pl.UTF-8):   Biblioteki Quake2 dla SDL z obsługą GL
+Summary(pl.UTF-8):	Biblioteki Quake2 dla SDL z obsługą GL
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-renderer
@@ -135,7 +135,7 @@ Biblioteki Quake2 do grania na SDL z obsługą GL.
 
 %package svga
 Summary:	Quake2 for SVGAlib
-Summary(pl.UTF-8):   Biblioteki Quake2 dla SVGAlib
+Summary(pl.UTF-8):	Biblioteki Quake2 dla SVGAlib
 Group:		Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-renderer
@@ -149,7 +149,7 @@ Biblioteki Quake2 do grania na SVGAlib.
 
 %package x11
 Summary:	Quake2 X11 software renderer libs
-Summary(pl.UTF-8):   Biblioteka Quake2 - programowe renderowanie
+Summary(pl.UTF-8):	Biblioteka Quake2 - programowe renderowanie
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-renderer
@@ -164,7 +164,7 @@ Zagraj w Quake2 przy użyciu programowego renderowania w X11.
 
 %package snd-oss
 Summary:	Quake2 OSS sound plugin
-Summary(pl.UTF-8):   Wtyczka dźwięku OSS dla Quake2
+Summary(pl.UTF-8):	Wtyczka dźwięku OSS dla Quake2
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-sound-plugin
@@ -177,7 +177,7 @@ Wtyczka dźwięku OSS dla Quake2.
 
 %package snd-sdl
 Summary:	Quake2 SDL sound plugin
-Summary(pl.UTF-8):   Wtyczka dźwięku SDL dla Quake2
+Summary(pl.UTF-8):	Wtyczka dźwięku SDL dla Quake2
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-sound-plugin
@@ -190,7 +190,7 @@ Wtyczka dźwięku SDL dla Quake2.
 
 %package snd-alsa
 Summary:	Quake2 ALSA sound plugin
-Summary(pl.UTF-8):   Wtyczka dźwięku ALSA dla Quake2
+Summary(pl.UTF-8):	Wtyczka dźwięku ALSA dla Quake2
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-sound-plugin
@@ -203,7 +203,7 @@ Wtyczka dźwięku ALSA dla Quake2.
 
 %package snd-ao
 Summary:	Quake2 ao sound plugin
-Summary(pl.UTF-8):   Wtyczka dźwięku ao dla Quake2
+Summary(pl.UTF-8):	Wtyczka dźwięku ao dla Quake2
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-sound-plugin
