@@ -19,30 +19,29 @@ case "$1" in
 		msg_starting "Quake2 server"
 		busy
 		cd $GHOME
-    		/usr/bin/quake2 +set dedicated 1 +exec server.cfg > /dev/null &
+		/usr/bin/quake2 +set dedicated 1 +exec server.cfg > /dev/null &
 		deltext
 		ok
 	else
 		msg_Already_Running "Quake2 server"
-	        exit 1
+		exit 1
 	fi
 	touch /var/lock/subsys/quake2-server
 	;;
   stop)
-
 	if [ -f /var/lock/subsys/quake2-server ]; then
 		msg_stopping "Quake2 server"
-                killproc quake2
-                rm -f /var/lock/subsys/quake2-server
-        else
-                msg_Not_Running "Quake2 server"
-                exit 1
+		killproc quake2
+		rm -f /var/lock/subsys/quake2-server
+	else
+		msg_Not_Running "Quake2 server"
+		exit 1
 	fi
 	;;
   restart|reload)
-        $0 stop
-        $0 start
-        ;;
+	$0 stop
+	$0 start
+	;;
   status)
 	status /usr/bin/quake2
 	exit $?
