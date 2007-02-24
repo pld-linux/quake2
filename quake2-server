@@ -23,7 +23,7 @@ case "$1" in
 		deltext
 		ok
 	else
-		msg_Already_Running "Quake2 server"
+		msg_already_running "Quake2 server"
 		exit 1
 	fi
 	touch /var/lock/subsys/quake2-server
@@ -34,7 +34,7 @@ case "$1" in
 		killproc quake2
 		rm -f /var/lock/subsys/quake2-server
 	else
-		msg_Not_Running "Quake2 server"
+		msg_not_running "Quake2 server"
 		exit 1
 	fi
 	;;
