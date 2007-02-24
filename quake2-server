@@ -11,8 +11,7 @@ start() {
 	if [ ! -f /var/lock/subsys/q2ded ]; then
 		msg_starting "Quake2 server"
 		busy
-
-		su -s /bin/sh - quake2 -c "screen -dmS q2ded /usr/bin/quake2 +set dedicated 1 +exec server.cfg"
+		su -s /bin/sh - quake2 -c "screen -dmS q2ded"
 		RETVAL=$?
 		if [ "$RETVAL" = 0 ]; then
 			touch /var/lock/subsys/q2ded
