@@ -5,7 +5,7 @@ Summary(pl.UTF-8):	Quake2 dla Linuksa
 Summary(pt_BR.UTF-8):	Quake2 para Linux
 Name:		quake2
 Version:	0.3
-Release:	3.2
+Release:	3.3
 Epoch:		1
 License:	GPL (for code only)
 Group:		X11/Applications/Games
@@ -37,6 +37,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_gamelibdir	%{_libdir}/games/%{name}
 %define		_gamedatadir	%{_datadir}/games/%{name}
+%define		_gamehomedir	/var/games/%{name}
 
 %description
 Quake2 for linux!
@@ -61,6 +62,7 @@ Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	rc-scripts
+Requires:	screen
 Provides:	group(quake2)
 Provides:	user(quake2)
 
@@ -240,7 +242,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_gamedatadir}/baseq2,/etc/rc.d/init.d} \
+install -d $RPM_BUILD_ROOT{{%{_gamedatadir},%{_gamehomedir}}/baseq2,/etc/rc.d/init.d} \
 	$RPM_BUILD_ROOT{%{_pixmapsdir},%{_desktopdir}}
 
 #$RPM_BUILD_ROOT%{_gamedir}/baseq2/players/{crakhor,cyborg,female,male}
@@ -250,7 +252,7 @@ install -d $RPM_BUILD_ROOT{%{_gamedatadir}/baseq2,/etc/rc.d/init.d} \
 #done
 #install baseq2/pak2.pak        $RPM_BUILD_ROOT%{_gamedir}/quake2/baseq2
 
-install %{SOURCE2} $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/server.cfg
+install %{SOURCE2} $RPM_BUILD_ROOT%{_gamehomedir}/baseq2/server.cfg
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d
 install %{SOURCE4} $RPM_BUILD_ROOT%{_pixmapsdir}
 install %{SOURCE5} $RPM_BUILD_ROOT%{_desktopdir}/%{name}.desktop
@@ -264,14 +266,12 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/games/quake2/ref_{soft,softx,sdlgl,softsdl,glx}.
 rm -f $RPM_BUILD_ROOT%{_libdir}/games/quake2/{baseq2,ctf}/game.la
 rm -f $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/config.cfg
 
-install -d $RPM_BUILD_ROOT/var/games/quake2
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %pre server
 %groupadd -P %{name}-server -g 170 quake2
-%useradd -P %{name}-server -u 170 -d /var/games/quake2 -s /bin/sh -c "Quake 2" -g quake2 quake2
+%useradd -P %{name}-server -u 170 -d %{_gamehomedir} -s /bin/sh -c "Quake 2" -g quake2 quake2
 
 %post server
 /sbin/chkconfig --add quake2-server
@@ -287,6 +287,12 @@ fi
 if [ "$1" = "0" ]; then
 	%userremove quake2
 	%groupremove quake2
+fi
+
+%triggerpostun server -- %{name}-server < 1:0.3-3.3
+if [ -f %{_gamedatadir}/baseq2/server.cfg.rpmsave ]; then
+	mv -f %{_gamehomedir}/baseq2/server.cfg{,.rpmnew}
+	mv -f %{_gamedatadir}/baseq2/server.cfg.rpmsave %{_gamehomedir}/baseq2/server.cfg
 fi
 
 %files
@@ -308,8 +314,9 @@ fi
 %files server
 %defattr(644,root,root,755)
 %attr(754,root,root) /etc/rc.d/init.d/quake2-server
-%config(noreplace) %verify(not md5 mtime size) %{_gamedatadir}/baseq2/server.cfg
-%attr(770,root,quake2) /var/games/quake2
+%dir %attr(770,root,quake2) %{_gamehomedir}
+%dir %attr(770,root,quake2) %{_gamehomedir}/baseq2
+%config(noreplace) %verify(not md5 mtime size) %{_gamehomedir}/baseq2/server.cfg
 
 %files 3dfx
 %defattr(644,root,root,755)
