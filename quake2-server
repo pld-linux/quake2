@@ -1,54 +1,59 @@
 #!/bin/sh
-# quake2-server
-# qui mai  7 16:15:54 EST 1998
 #
 # chkconfig: 345 98 10
-# description: Ativa/Desativa servidor quake2
-# Translated to English by fastviper
+# description: quake2 server
 
-# Biblioteca de funções
 # Functions library
 . /etc/rc.d/init.d/functions
 
 GHOME=/usr/share/games/quake2
 
-case "$1" in
-  start)
+start() {
 	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/quake2-server ]; then
 		msg_starting "Quake2 server"
 		busy
 		cd $GHOME
 		/usr/bin/quake2 +set dedicated 1 +exec server.cfg > /dev/null &
+		RETVAL=$!
 		deltext
 		ok
+		touch /var/lock/subsys/quake2-server
 	else
 		msg_already_running "Quake2 server"
-		exit 1
 	fi
-	touch /var/lock/subsys/quake2-server
-	;;
-  stop)
+}
+
+stop() {
 	if [ -f /var/lock/subsys/quake2-server ]; then
 		msg_stopping "Quake2 server"
 		killproc quake2
 		rm -f /var/lock/subsys/quake2-server
 	else
 		msg_not_running "Quake2 server"
-		exit 1
+		exit 7
 	fi
+}
+
+RETVAL=0
+case "$1" in
+  start)
+  	start
 	;;
-  restart|reload)
-	$0 stop
-	$0 start
+  stop)
+  	stop
+	;;
+  restart)
+	stop
+	start
 	;;
   status)
 	status /usr/bin/quake2
 	exit $?
 	;;
   *)
-	msg_Usage "$0 {start|stop|restart|reload|status}"
-	exit 1
+	msg_Usage "$0 {start|stop|restart|status}"
+	exit 3
 esac
 
 exit 0
