@@ -8,15 +8,15 @@
 
 start() {
 	# Check if the service is already running?
-	if [ ! -f /var/lock/subsys/quake2-server ]; then
+	if [ ! -f /var/lock/subsys/q2ded ]; then
 		msg_starting "Quake2 server"
 		busy
 
 		su -s /bin/sh - quake2 -c "screen -dmS q2ded /usr/bin/quake2 +set dedicated 1 +exec server.cfg"
 		RETVAL=$?
 		if [ "$RETVAL" = 0 ]; then
-			touch /var/lock/subsys/quake2-server
-		   	ok
+			touch /var/lock/subsys/q2ded
+			ok
 		else
 			fail
 		fi
@@ -26,10 +26,10 @@ start() {
 }
 
 stop() {
-	if [ -f /var/lock/subsys/quake2-server ]; then
+	if [ -f /var/lock/subsys/q2ded ]; then
 		msg_stopping "Quake2 server"
 		su -s /bin/sh - quake2 -c "screen -S q2ded -X quit > /dev/null" && ok || fail
-		rm -f /var/lock/subsys/quake2-server
+		rm -f /var/lock/subsys/q2ded
 	else
 		msg_not_running "Quake2 server"
 		exit 7
