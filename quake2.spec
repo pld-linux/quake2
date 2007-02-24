@@ -66,8 +66,17 @@ Summary(pl.UTF-8):	Serwer Quake2
 Summary(pt_BR.UTF-8):	Servidor Quake2
 Group:		Applications/Games
 Requires(post,preun):	/sbin/chkconfig
+Requires(post,preun):	/sbin/chkconfig
+Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
+Requires(pre):	/bin/id
+Requires(pre):	/usr/bin/getgid
+Requires(pre):	/usr/sbin/groupadd
+Requires(pre):	/usr/sbin/useradd
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	rc-scripts
+Provides:	group(quake2)
+Provides:	user(quake2)
 
 %description server
 Quake2 server.
@@ -266,9 +275,16 @@ rm -rf _doc/{CVS,Makefile*,ctf/CVS,ctf/Makefile*}
 rm -f $RPM_BUILD_ROOT%{_libdir}/games/quake2/snd_{alsa,ao,oss,sdl}.{la,a}
 rm -f $RPM_BUILD_ROOT%{_libdir}/games/quake2/ref_{soft,softx,sdlgl,softsdl,glx}.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/games/quake2/{baseq2,ctf}/game.la
+rm -f $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/config.cfg
+
+install -d $RPM_BUILD_ROOT/var/games/quake2
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%pre server
+%groupadd -P %{name}-server -g 170 quake2
+%useradd -P %{name}-server -u 170 -d /var/games/quake2 -s /bin/sh -c "Quake 2" -g quake2 quake2
 
 %post server
 /sbin/chkconfig --add quake2-server
@@ -278,6 +294,12 @@ rm -rf $RPM_BUILD_ROOT
 if [ "$1" = "0" ]; then
 	%service quake2-server stop
 	/sbin/chkconfig --del quake2-server
+fi
+
+%postun server
+if [ "$1" = "0" ]; then
+	%userremove quake2
+	%groupremove quake2
 fi
 
 %files
@@ -311,6 +333,7 @@ fi
 %defattr(644,root,root,755)
 %attr(754,root,root) /etc/rc.d/init.d/quake2-server
 %config(noreplace) %verify(not md5 mtime size) %{_gamedatadir}/baseq2/server.cfg
+%attr(770,root,quake2) /var/games/quake2
 
 %files 3dfx
 %defattr(644,root,root,755)
