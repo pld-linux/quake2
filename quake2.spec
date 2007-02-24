@@ -1,12 +1,11 @@
 # TODO:
 # - ipv6 support
-# - -static without -devel makes no sense (remove -static)
 Summary:	Quake2 for linux
 Summary(pl.UTF-8):	Quake2 dla Linuksa
 Summary(pt_BR.UTF-8):	Quake2 para Linux
 Name:		quake2
 Version:	0.3
-Release:	3.1
+Release:	3.2
 Epoch:		1
 License:	GPL (for code only)
 Group:		X11/Applications/Games
@@ -48,24 +47,11 @@ Quake2 dla Linuksa!
 %description -l pt_BR.UTF-8
 Quake2 para Linux!
 
-%package static
-Summary:	Quake2 - static libs
-Summary(pl.UTF-8):	Quake2 - biblioteki statyczne
-Group:		X11/Applications/Games
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-
-%description static
-Quake2 - static libs
-
-%description static -l pl.UTF-8
-Quake2 - biblioteki statyczne
-
 %package server
 Summary:	Quake2 server
 Summary(pl.UTF-8):	Serwer Quake2
 Summary(pt_BR.UTF-8):	Servidor Quake2
 Group:		Applications/Games
-Requires(post,preun):	/sbin/chkconfig
 Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
@@ -239,6 +225,7 @@ Wtyczka dźwięku ao dla Quake2.
 %{__autoconf}
 
 %configure \
+	--disable-static \
 	--enable-ltdl-install=no \
 	--libdir=%{_libdir}/games \
 	--datadir=%{_datadir}/games \
@@ -272,7 +259,7 @@ rm -rf _doc
 cp -a docs _doc
 rm -rf _doc/{CVS,Makefile*,ctf/CVS,ctf/Makefile*}
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/games/quake2/snd_{alsa,ao,oss,sdl}.{la,a}
+rm -f $RPM_BUILD_ROOT%{_libdir}/games/quake2/snd_{alsa,ao,oss,sdl}.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/games/quake2/ref_{soft,softx,sdlgl,softsdl,glx}.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/games/quake2/{baseq2,ctf}/game.la
 rm -f $RPM_BUILD_ROOT%{_gamedatadir}/baseq2/config.cfg
@@ -317,17 +304,6 @@ fi
 %dir %{_gamedatadir}/baseq2
 %{_pixmapsdir}/quake2.png
 %{_desktopdir}/quake2.desktop
-
-%files static
-%defattr(644,root,root,755)
-%{_gamelibdir}/baseq2/game.a
-%{_gamelibdir}/ctf/game.a
-%{_gamelibdir}/ref_glx.a
-%{_gamelibdir}/ref_sdlgl.a
-%{_gamelibdir}/ref_soft.a
-%{_gamelibdir}/ref_softsdl.a
-%{_gamelibdir}/ref_softx.a
-%{_gamelibdir}/ref_tdfx.a
 
 %files server
 %defattr(644,root,root,755)
