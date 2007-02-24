@@ -1,24 +1,25 @@
 #!/bin/sh
 #
 # chkconfig: 345 98 10
-# description: quake2 server
+# description: dedicated quake2 server
 
 # Functions library
 . /etc/rc.d/init.d/functions
-
-GHOME=/usr/share/games/quake2
 
 start() {
 	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/quake2-server ]; then
 		msg_starting "Quake2 server"
 		busy
-		cd $GHOME
-		/usr/bin/quake2 +set dedicated 1 +exec server.cfg > /dev/null &
-		RETVAL=$!
-		deltext
-		ok
-		touch /var/lock/subsys/quake2-server
+
+		su -s /bin/sh - quake2 -c "screen -dmS q2ded /usr/bin/quake2 +set dedicated 1 +exec server.cfg"
+		RETVAL=$?
+		if [ "$RETVAL" = 0 ]; then
+			touch /var/lock/subsys/quake2-server
+		   	ok
+		else
+			fail
+		fi
 	else
 		msg_already_running "Quake2 server"
 	fi
@@ -27,7 +28,7 @@ start() {
 stop() {
 	if [ -f /var/lock/subsys/quake2-server ]; then
 		msg_stopping "Quake2 server"
-		killproc quake2
+		su -s /bin/sh - quake2 -c "screen -S q2ded -X quit 2>/dev/null" && ok || fail
 		rm -f /var/lock/subsys/quake2-server
 	else
 		msg_not_running "Quake2 server"
