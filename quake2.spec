@@ -5,7 +5,7 @@ Summary(pl.UTF-8):	Quake2 dla Linuksa
 Summary(pt_BR.UTF-8):	Quake2 para Linux
 Name:		quake2
 Version:	0.3
-Release:	3.10
+Release:	3.11
 Epoch:		1
 License:	GPL (for code only)
 Group:		X11/Applications/Games
@@ -244,7 +244,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_gamedatadir},%{_gamehomedir}}/baseq2 \
+install -d $RPM_BUILD_ROOT{%{_gamedatadir}/baseq2,%{_gamehomedir}/.quake2/baseq2} \
 	$RPM_BUILD_ROOT{/etc/sysconfig,/etc/rc.d/init.d} \
 	$RPM_BUILD_ROOT{%{_pixmapsdir},%{_desktopdir}}
 
@@ -255,7 +255,7 @@ install -d $RPM_BUILD_ROOT{%{_gamedatadir},%{_gamehomedir}}/baseq2 \
 #done
 #install baseq2/pak2.pak        $RPM_BUILD_ROOT%{_gamedir}/quake2/baseq2
 
-install %{SOURCE2} $RPM_BUILD_ROOT%{_gamehomedir}/baseq2/server.cfg
+install %{SOURCE2} $RPM_BUILD_ROOT%{_gamehomedir}/.quake2/baseq2/server.cfg
 install %{SOURCE7} $RPM_BUILD_ROOT%{_gamehomedir}/.screenrc
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d/q2ded
 install %{SOURCE4} $RPM_BUILD_ROOT%{_pixmapsdir}
@@ -294,10 +294,10 @@ if [ "$1" = "0" ]; then
 	%groupremove quake2
 fi
 
-%triggerpostun server -- %{name}-server < 1:0.3-3.6
+%triggerpostun server -- %{name}-server < 1:0.3-3.11
 if [ -f %{_gamedatadir}/baseq2/server.cfg.rpmsave ]; then
-	mv -f %{_gamehomedir}/baseq2/server.cfg{,.rpmnew}
-	mv -f %{_gamedatadir}/baseq2/server.cfg.rpmsave %{_gamehomedir}/baseq2/server.cfg
+	mv -f %{_gamehomedir}/.quake2/baseq2/server.cfg{,.rpmnew}
+	mv -f %{_gamedatadir}/baseq2/server.cfg.rpmsave %{_gamehomedir}/.quake2/baseq2/server.cfg
 fi
 
 if [ -f /var/lock/subsys/quake2-server ]; then
@@ -326,9 +326,10 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/q2ded
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/q2ded
 %dir %attr(770,root,quake2) %{_gamehomedir}
-%dir %attr(770,root,quake2) %{_gamehomedir}/baseq2
-%config(noreplace) %attr(660,root,quake2) %verify(not md5 mtime size) %{_gamehomedir}/baseq2/server.cfg
 %config(noreplace) %attr(660,root,quake2) %verify(not md5 mtime size) %{_gamehomedir}/.screenrc
+%dir %attr(770,root,quake2) %{_gamehomedir}/.quake2
+%dir %attr(770,root,quake2) %{_gamehomedir}/.quake2/baseq2
+%config(noreplace) %attr(660,root,quake2) %verify(not md5 mtime size) %{_gamehomedir}/.quake2/baseq2/server.cfg
 
 %files 3dfx
 %defattr(644,root,root,755)
