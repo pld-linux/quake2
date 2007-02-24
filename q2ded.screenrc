@@ -1,0 +1,4 @@
+sessionname q2ded
+
+chdir /var/games/quake2
+screen /usr/bin/quake2 +set dedicated 1 +exec server.cfg
