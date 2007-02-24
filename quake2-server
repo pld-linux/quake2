@@ -28,7 +28,7 @@ start() {
 stop() {
 	if [ -f /var/lock/subsys/quake2-server ]; then
 		msg_stopping "Quake2 server"
-		su -s /bin/sh - quake2 -c "screen -S q2ded -X quit 2>/dev/null" && ok || fail
+		su -s /bin/sh - quake2 -c "screen -S q2ded -X quit > /dev/null" && ok || fail
 		rm -f /var/lock/subsys/quake2-server
 	else
 		msg_not_running "Quake2 server"
