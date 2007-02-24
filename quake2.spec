@@ -6,7 +6,7 @@ Summary(pl.UTF-8):	Quake2 dla Linuksa
 Summary(pt_BR.UTF-8):	Quake2 para Linux
 Name:		quake2
 Version:	0.3
-Release:	3
+Release:	3.1
 Epoch:		1
 License:	GPL (for code only)
 Group:		X11/Applications/Games
@@ -264,6 +264,8 @@ cp -a docs _doc
 rm -rf _doc/{CVS,Makefile*,ctf/CVS,ctf/Makefile*}
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/games/quake2/snd_{alsa,ao,oss,sdl}.{la,a}
+rm -f $RPM_BUILD_ROOT%{_libdir}/games/quake2/ref_{soft,softx,sdlgl,softsdl,glx}.la
+rm -f $RPM_BUILD_ROOT%{_libdir}/games/quake2/{baseq2,ctf}/game.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -286,9 +288,7 @@ fi
 %dir %{_gamelibdir}/baseq2
 %dir %{_gamelibdir}/ctf
 %attr(755,root,root) %{_gamelibdir}/baseq2/game.so
-%{_gamelibdir}/baseq2/game.la
 %attr(755,root,root) %{_gamelibdir}/ctf/game.so
-%{_gamelibdir}/ctf/game.la
 #%%{_gamedir}/baseq2/pak2.pak
 #%%{_gamedir}/baseq2/players
 %dir %{_gamedatadir}
@@ -320,27 +320,22 @@ fi
 %files glx
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_gamelibdir}/ref_glx.so
-%{_gamelibdir}/ref_glx.la
 
 %files sdl
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_gamelibdir}/ref_softsdl.so
-%{_gamelibdir}/ref_softsdl.la
 
 %files sgl
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_gamelibdir}/ref_sdlgl.so
-%{_gamelibdir}/ref_sdlgl.la
 
 %files svga
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_gamelibdir}/ref_soft.so
-%{_gamelibdir}/ref_soft.la
 
 %files x11
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_gamelibdir}/ref_softx.so
-%{_gamelibdir}/ref_softx.la
 
 %files snd-oss
 %defattr(644,root,root,755)
