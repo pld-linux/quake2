@@ -5,7 +5,7 @@ Summary(pl.UTF-8):	Quake2 dla Linuksa
 Summary(pt_BR.UTF-8):	Quake2 para Linux
 Name:		quake2
 Version:	0.3
-Release:	3.3
+Release:	3.8
 Epoch:		1
 License:	GPL (for code only)
 Group:		X11/Applications/Games
@@ -17,6 +17,7 @@ Source2:	%{name}-server.conf
 Source3:	%{name}-server
 Source4:	%{name}.png
 Source5:	%{name}.desktop
+Source6:	q2ded.sysconfig
 Patch0:		%{name}-stupid_nvidia_bug.patch
 Patch1:		%{name}-gl.patch
 URL:		http://www.quakeforge.net/
@@ -242,7 +243,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{{%{_gamedatadir},%{_gamehomedir}}/baseq2,/etc/rc.d/init.d} \
+install -d $RPM_BUILD_ROOT{%{_gamedatadir},%{_gamehomedir}}/baseq2 \
+	$RPM_BUILD_ROOT{/etc/sysconfig,/etc/rc.d/init.d} \
 	$RPM_BUILD_ROOT{%{_pixmapsdir},%{_desktopdir}}
 
 #$RPM_BUILD_ROOT%{_gamedir}/baseq2/players/{crakhor,cyborg,female,male}
@@ -253,9 +255,10 @@ install -d $RPM_BUILD_ROOT{{%{_gamedatadir},%{_gamehomedir}}/baseq2,/etc/rc.d/in
 #install baseq2/pak2.pak        $RPM_BUILD_ROOT%{_gamedir}/quake2/baseq2
 
 install %{SOURCE2} $RPM_BUILD_ROOT%{_gamehomedir}/baseq2/server.cfg
-install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d/q2ded
 install %{SOURCE4} $RPM_BUILD_ROOT%{_pixmapsdir}
 install %{SOURCE5} $RPM_BUILD_ROOT%{_desktopdir}/%{name}.desktop
+install %{SOURCE6} $RPM_BUILD_ROOT/etc/sysconfig/q2ded
 
 rm -rf _doc
 cp -a docs _doc
@@ -274,13 +277,13 @@ rm -rf $RPM_BUILD_ROOT
 %useradd -P %{name}-server -u 170 -d %{_gamehomedir} -s /bin/sh -c "Quake 2" -g quake2 quake2
 
 %post server
-/sbin/chkconfig --add quake2-server
-%service quake2-server restart "Quake2 server"
+/sbin/chkconfig --add q2ded
+%service q2ded restart "Quake2 server"
 
 %preun server
 if [ "$1" = "0" ]; then
-	%service quake2-server stop
-	/sbin/chkconfig --del quake2-server
+	%service q2ded stop
+	/sbin/chkconfig --del q2ded
 fi
 
 %postun server
@@ -289,10 +292,15 @@ if [ "$1" = "0" ]; then
 	%groupremove quake2
 fi
 
-%triggerpostun server -- %{name}-server < 1:0.3-3.3
+%triggerpostun server -- %{name}-server < 1:0.3-3.6
 if [ -f %{_gamedatadir}/baseq2/server.cfg.rpmsave ]; then
 	mv -f %{_gamehomedir}/baseq2/server.cfg{,.rpmnew}
 	mv -f %{_gamedatadir}/baseq2/server.cfg.rpmsave %{_gamehomedir}/baseq2/server.cfg
+fi
+
+if [ -f /var/lock/subsys/quake2-server ]; then
+	mv -f /var/lock/subsys/{quake2-server,q2ded}
+	%service -q q2ded restart
 fi
 
 %files
@@ -313,10 +321,11 @@ fi
 
 %files server
 %defattr(644,root,root,755)
-%attr(754,root,root) /etc/rc.d/init.d/quake2-server
+%attr(754,root,root) /etc/rc.d/init.d/q2ded
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/q2ded
 %dir %attr(770,root,quake2) %{_gamehomedir}
 %dir %attr(770,root,quake2) %{_gamehomedir}/baseq2
-%config(noreplace) %verify(not md5 mtime size) %{_gamehomedir}/baseq2/server.cfg
+%config(noreplace) %attr(660,root,quake2) %verify(not md5 mtime size) %{_gamehomedir}/baseq2/server.cfg
 
 %files 3dfx
 %defattr(644,root,root,755)
