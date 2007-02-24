@@ -1,0 +1,11 @@
+- Updated to snapshot 20020815
+- Added 3dfx, sdl, sgl, stastic subpackages
+- Renamed some subpackages
+- Removed sources 1, 3 (others are renumbered)
+- Corrected libdir & datadir in %configure
+- Added some doc
+- Snapshot number moved from release to version
+- Added missing dirs
+- Deleted some messing lines
+- Cosmetics & simplifications
+- Release 1
