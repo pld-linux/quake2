@@ -5,7 +5,7 @@ Summary(pl.UTF-8):	Quake2 dla Linuksa
 Summary(pt_BR.UTF-8):	Quake2 para Linux
 Name:		quake2
 Version:	0.3
-Release:	3.8
+Release:	3.10
 Epoch:		1
 License:	GPL (for code only)
 Group:		X11/Applications/Games
@@ -18,6 +18,7 @@ Source3:	%{name}-server
 Source4:	%{name}.png
 Source5:	%{name}.desktop
 Source6:	q2ded.sysconfig
+Source7:	q2ded.screenrc
 Patch0:		%{name}-stupid_nvidia_bug.patch
 Patch1:		%{name}-gl.patch
 URL:		http://www.quakeforge.net/
@@ -255,6 +256,7 @@ install -d $RPM_BUILD_ROOT{%{_gamedatadir},%{_gamehomedir}}/baseq2 \
 #install baseq2/pak2.pak        $RPM_BUILD_ROOT%{_gamedir}/quake2/baseq2
 
 install %{SOURCE2} $RPM_BUILD_ROOT%{_gamehomedir}/baseq2/server.cfg
+install %{SOURCE7} $RPM_BUILD_ROOT%{_gamehomedir}/.screenrc
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d/q2ded
 install %{SOURCE4} $RPM_BUILD_ROOT%{_pixmapsdir}
 install %{SOURCE5} $RPM_BUILD_ROOT%{_desktopdir}/%{name}.desktop
@@ -326,6 +328,7 @@ fi
 %dir %attr(770,root,quake2) %{_gamehomedir}
 %dir %attr(770,root,quake2) %{_gamehomedir}/baseq2
 %config(noreplace) %attr(660,root,quake2) %verify(not md5 mtime size) %{_gamehomedir}/baseq2/server.cfg
+%config(noreplace) %attr(660,root,quake2) %verify(not md5 mtime size) %{_gamehomedir}/.screenrc
 
 %files 3dfx
 %defattr(644,root,root,755)
