@@ -5,7 +5,7 @@ Summary(pl.UTF-8):	Quake2 dla Linuksa
 Summary(pt_BR.UTF-8):	Quake2 para Linux
 Name:		quake2
 Version:	0.3
-Release:	3.11
+Release:	4
 Epoch:		1
 License:	GPL (for code only)
 Group:		X11/Applications/Games
@@ -35,6 +35,7 @@ BuildRequires:	sed >= 4.0
 BuildRequires:	svgalib-devel
 BuildRequires:	unzip
 Requires:	%{name}-renderer
+Obsoletes:	quake2-static
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_gamelibdir	%{_libdir}/games/%{name}
@@ -42,7 +43,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_gamehomedir	/var/games/%{name}
 
 %description
-Quake2 for linux!
+Quake2 for Linux!
 
 %description -l pl.UTF-8
 Quake2 dla Linuksa!
