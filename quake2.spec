@@ -1,3 +1,8 @@
+#
+# Conditional build:
+%bcond_with	rogue	# with Rogue ("Ground Zero") Mission Pack  (non-distributable package)
+%bcond_with	xatrix	# with Xatrix ("The Reckoning") Mission Pack  (non-distributable package)
+#
 Summary:	Quake2 for Linux
 Summary(pl.UTF-8):	Quake2 dla Linuksa
 Summary(pt_BR.UTF-8):	Quake2 para Linux
@@ -16,16 +21,26 @@ Source3:	%{name}-server
 Source4:	%{name}.png
 Source5:	%{name}-server.sysconfig
 Source6:	%{name}-server.screenrc
+Source10:	ftp://ftp.idsoftware.com/idstuff/quake2/source/roguesrc320.shar.Z
+# Source10-md5:	7d5e052839c9e629bad0a6570aa70554
+Source11:	ftp://ftp.idsoftware.com/idstuff/quake2/source/xatrixsrc320.shar.Z
+# Source11-md5:	41fc4ecc4f25c068e7d1f488bd4a1e1a
 Patch0:		%{name}-fix.patch
 Patch1:		%{name}-gamedir.patch
+Patch2:		%{name}-rogue.patch
+Patch3:		%{name}-xatrix.patch
 URL:		http://www.idsoftware.com/games/quake/quake2/
 BuildRequires:	OpenGL-GLX-devel
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	svgalib-devel
 BuildRequires:	unzip
+BuildRequires:	xorg-lib-libXext-devel
+BuildRequires:	xorg-lib-libXxf86dga-devel
+BuildRequires:	xorg-lib-libXxf86vm-devel
 Requires:	%{name}-renderer = %{epoch}:%{version}-%{release}
 Obsoletes:	quake2-3DFX
 Obsoletes:	quake2-3dfx
+Obsoletes:	quake2-Mesa3D
 Obsoletes:	quake2-sdl
 Obsoletes:	quake2-sgl
 Obsoletes:	quake2-snd-ao
@@ -127,11 +142,55 @@ Play Quake2 using software X11 renderer.
 %description x11 -l pl.UTF-8
 Zagraj w Quake2 przy użyciu programowego renderowania w X11.
 
+%package rogue
+Summary:	Quake II: Ground Zero (mission pack)
+Summary(pl.UTF-8):	Quake II: Ground Zero (zestaw misji)
+License:	GPL+Limited Program Source Code License (non-distributable in binary form)
+Group:		Applications/Games
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description rogue
+Quake II: Ground Zero (mission pack).
+
+%description rogue -l pl.UTF-8
+Quake II: Ground Zero (zestaw misji).
+
+%package xatrix
+Summary:	Quake II: The Reckoning (mission pack)
+Summary(pl.UTF-8):	Quake II: The Reckoning (zestaw misji)
+License:	GPL+Limited Program Source Code License (non-distributable in binary form)
+Group:		Applications/Games
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description xatrix
+Quake II: The Reckoning (mission pack).
+
+%description xatrix -l pl.UTF-8
+Quake II: The Reckoning (zestaw misji).
+
 %prep
 %setup -q -c
 mv -f %{name}-%{version}/* .
 %patch0 -p1
 %patch1 -p1
+
+%if %{with rogue}
+install -d rogue
+cd rogue
+gzip -dc %{SOURCE10} | %{__sed} s/"^more "/"cat >LICENSE.rogue "/ >rogue.shar
+echo yes| sh rogue.shar
+cd ..
+%patch2 -p1
+%endif
+
+%if %{with xatrix}
+install -d xatrix
+cd xatrix
+gunzip -c %{SOURCE11} | %{__sed} s/"^more "/"cat >LICENSE.xatrix "/ >xatrix.shar
+echo yes| sh xatrix.shar
+cd ..
+%patch3 -p1
+%endif
 
 %build
 cat linux/Makefile | tr -d '\015' > Makefile.tmp
@@ -152,9 +211,15 @@ install -d $RPM_BUILD_ROOT{%{_gamedatadir}/baseq2,%{_gamelibdir}/{baseq2,ctf}} \
 cd linux/release%{qarch}-glibc
 
 install quake2 $RPM_BUILD_ROOT%{_bindir}/quake2id
+install ref_*.so $RPM_BUILD_ROOT%{_gamelibdir}
 install game%{qarch}.so $RPM_BUILD_ROOT%{_gamelibdir}/baseq2
 install ctf/game%{qarch}.so $RPM_BUILD_ROOT%{_gamelibdir}/ctf
-install ref_*.so $RPM_BUILD_ROOT%{_gamelibdir}
+%if %{with rogue}
+install -D rogue/game%{qarch}.so $RPM_BUILD_ROOT%{_gamelibdir}/rogue/game%{qarch}.so
+%endif
+%if %{with xatrix}
+install -D xatrix/game%{qarch}.so $RPM_BUILD_ROOT%{_gamelibdir}/xatrix/game%{qarch}.so
+%endif
 
 cat > $RPM_BUILD_ROOT%{_bindir}/quake2-glx <<EOF
 #!/bin/sh
@@ -282,3 +347,17 @@ fi
 %attr(755,root,root) %{_bindir}/quake2-x11
 %attr(755,root,root) %{_gamelibdir}/ref_softx.so
 %{_desktopdir}/quake2-x11.desktop
+
+%if %{with rogue}
+%files rogue
+%defattr(644,root,root,755)
+%dir %{_gamelibdir}/rogue
+%attr(755,root,root) %{_gamelibdir}/rogue/game%{qarch}.so
+%endif
+
+%if %{with xatrix}
+%files xatrix
+%defattr(644,root,root,755)
+%dir %{_gamelibdir}/xatrix
+%attr(755,root,root) %{_gamelibdir}/xatrix/game%{qarch}.so
+%endif
