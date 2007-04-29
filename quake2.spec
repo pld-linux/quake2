@@ -8,7 +8,7 @@ Summary(pl.UTF-8):	Quake2 dla Linuksa
 Summary(pt_BR.UTF-8):	Quake2 para Linux
 Name:		quake2
 Version:	3.21
-Release:	4.1
+Release:	4.2
 Epoch:		1
 License:	GPL (for main code only)
 Group:		Applications/Games
@@ -48,6 +48,8 @@ Obsoletes:	quake2-snd-alsa
 Obsoletes:	quake2-snd-oss
 Obsoletes:	quake2-snd-sdl
 Obsoletes:	quake2-static
+# other archs need at least more #ifdefs
+ExclusiveArch:	%{ix86} alpha
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_gamelibdir	%{_libdir}/%{name}
@@ -223,19 +225,16 @@ install -D xatrix/game%{qarch}.so $RPM_BUILD_ROOT%{_gamelibdir}/xatrix/game%{qar
 
 cat > $RPM_BUILD_ROOT%{_bindir}/quake2-glx <<EOF
 #!/bin/sh
-cd %{_gamedatadir}
 exec /usr/bin/quake2id +set vid_ref glx +set gl_driver libGL.so.1 > /dev/null
 EOF
 
 cat > $RPM_BUILD_ROOT%{_bindir}/quake2-x11 <<EOF
 #!/bin/sh
-cd %{_gamedatadir}
 exec /usr/bin/quake2id +set vid_ref softx > /dev/null
 EOF
 
 cat > $RPM_BUILD_ROOT%{_bindir}/quake2-svga <<EOF
 #!/bin/sh
-cd %{_gamedatadir}
 exec /usr/bin/quake2id +set vid_ref soft > /dev/null
 EOF
 
