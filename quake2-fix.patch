@@ -1,0 +1,262 @@
+--- quake2-3.21/game/g_local.h.orig	2001-12-22 16:32:24.000000000 +0100
++++ quake2-3.21/game/g_local.h	2007-04-29 02:09:02.236954581 +0200
+@@ -458,10 +458,6 @@
+ extern	int	sm_meat_index;
+ extern	int	snd_fry;
+ 
+-extern	int	jacket_armor_index;
+-extern	int	combat_armor_index;
+-extern	int	body_armor_index;
+-
+ 
+ // means of death
+ #define MOD_UNKNOWN			0
+--- quake2-3.21/linux/rw_svgalib.c.orig	2001-12-22 16:32:26.000000000 +0100
++++ quake2-3.21/linux/rw_svgalib.c	2007-04-29 02:23:27.014235429 +0200
+@@ -41,8 +41,6 @@
+ #include <signal.h>
+ #include <sys/mman.h>
+ 
+-#include <asm/io.h>
+-
+ #include "vga.h"
+ #include "vgakeyboard.h"
+ #include "vgamouse.h"
+--- quake2-3.21/linux/rw_in_svgalib.c.orig	2001-12-22 16:32:26.000000000 +0100
++++ quake2-3.21/linux/rw_in_svgalib.c	2007-04-29 02:24:40.582427841 +0200
+@@ -26,8 +26,6 @@
+ #include <signal.h>
+ #include <sys/mman.h>
+ 
+-#include <asm/io.h>
+-
+ #include "vga.h"
+ #include "vgakeyboard.h"
+ #include "vgamouse.h"
+--- quake2-3.21/ref_gl/qgl.h.orig	2001-12-22 18:45:58.000000000 +0100
++++ quake2-3.21/ref_gl/qgl.h	2007-04-29 02:26:57.486229544 +0200
+@@ -481,6 +481,6 @@ void Fake_glColorTableEXT( GLenum target
+ #define GL_TEXTURE0_ARB						0x84C0
+ #define GL_TEXTURE1_ARB						0x84C1
+ 
+-extern int GL_TEXTURE0, GL_TEXTURE1;
++extern int QGL_TEXTURE0, QGL_TEXTURE1;
+ 
+ #endif
+--- quake2-3.21/ref_gl/gl_image.c.orig	2001-12-22 16:32:28.000000000 +0100
++++ quake2-3.21/ref_gl/gl_image.c	2007-04-29 02:27:49.801210805 +0200
+@@ -74,17 +74,17 @@ void GL_EnableMultitexture( qboolean ena
+ 
+ 	if ( enable )
+ 	{
+-		GL_SelectTexture( GL_TEXTURE1 );
++		GL_SelectTexture( QGL_TEXTURE1 );
+ 		qglEnable( GL_TEXTURE_2D );
+ 		GL_TexEnv( GL_REPLACE );
+ 	}
+ 	else
+ 	{
+-		GL_SelectTexture( GL_TEXTURE1 );
++		GL_SelectTexture( QGL_TEXTURE1 );
+ 		qglDisable( GL_TEXTURE_2D );
+ 		GL_TexEnv( GL_REPLACE );
+ 	}
+-	GL_SelectTexture( GL_TEXTURE0 );
++	GL_SelectTexture( QGL_TEXTURE0 );
+ 	GL_TexEnv( GL_REPLACE );
+ }
+ 
+@@ -95,7 +95,7 @@ void GL_SelectTexture( GLenum texture )
+ 	if ( !qglSelectTextureSGIS && !qglActiveTextureARB )
+ 		return;
+ 
+-	if ( texture == GL_TEXTURE0 )
++	if ( texture == QGL_TEXTURE0 )
+ 	{
+ 		tmu = 0;
+ 	}
+@@ -148,7 +148,7 @@ void GL_Bind (int texnum)
+ void GL_MBind( GLenum target, int texnum )
+ {
+ 	GL_SelectTexture( target );
+-	if ( target == GL_TEXTURE0 )
++	if ( target == QGL_TEXTURE0 )
+ 	{
+ 		if ( gl_state.currenttextures[0] == texnum )
+ 			return;
+--- quake2-3.21/ref_gl/gl_rmain.c.orig	2001-12-22 16:32:28.000000000 +0100
++++ quake2-3.21/ref_gl/gl_rmain.c	2007-04-29 02:28:21.731030382 +0200
+@@ -26,7 +26,7 @@ viddef_t	vid;
+ 
+ refimport_t	ri;
+ 
+-int GL_TEXTURE0, GL_TEXTURE1;
++int QGL_TEXTURE0, QGL_TEXTURE1;
+ 
+ model_t		*r_worldmodel;
+ 
+@@ -1338,8 +1338,8 @@ int R_Init( void *hinstance, void *hWnd 
+ 			qglMTexCoord2fSGIS = ( void * ) qwglGetProcAddress( "glMultiTexCoord2fARB" );
+ 			qglActiveTextureARB = ( void * ) qwglGetProcAddress( "glActiveTextureARB" );
+ 			qglClientActiveTextureARB = ( void * ) qwglGetProcAddress( "glClientActiveTextureARB" );
+-			GL_TEXTURE0 = GL_TEXTURE0_ARB;
+-			GL_TEXTURE1 = GL_TEXTURE1_ARB;
++			QGL_TEXTURE0 = GL_TEXTURE0_ARB;
++			QGL_TEXTURE1 = GL_TEXTURE1_ARB;
+ 		}
+ 		else
+ 		{
+@@ -1362,8 +1362,8 @@ int R_Init( void *hinstance, void *hWnd 
+ 			ri.Con_Printf( PRINT_ALL, "...using GL_SGIS_multitexture\n" );
+ 			qglMTexCoord2fSGIS = ( void * ) qwglGetProcAddress( "glMTexCoord2fSGIS" );
+ 			qglSelectTextureSGIS = ( void * ) qwglGetProcAddress( "glSelectTextureSGIS" );
+-			GL_TEXTURE0 = GL_TEXTURE0_SGIS;
+-			GL_TEXTURE1 = GL_TEXTURE1_SGIS;
++			QGL_TEXTURE0 = GL_TEXTURE0_SGIS;
++			QGL_TEXTURE1 = GL_TEXTURE1_SGIS;
+ 		}
+ 		else
+ 		{
+--- quake2-3.21/ref_gl/gl_rsurf.c.orig	2001-12-22 16:32:28.000000000 +0100
++++ quake2-3.21/ref_gl/gl_rsurf.c	2007-04-29 02:28:53.672850642 +0200
+@@ -741,7 +741,7 @@ dynamic:
+ 			R_BuildLightMap( surf, (void *)temp, smax*4 );
+ 			R_SetCacheState( surf );
+ 
+-			GL_MBind( GL_TEXTURE1, gl_state.lightmap_textures + surf->lightmaptexturenum );
++			GL_MBind( QGL_TEXTURE1, gl_state.lightmap_textures + surf->lightmaptexturenum );
+ 
+ 			lmtex = surf->lightmaptexturenum;
+ 
+@@ -759,7 +759,7 @@ dynamic:
+ 
+ 			R_BuildLightMap( surf, (void *)temp, smax*4 );
+ 
+-			GL_MBind( GL_TEXTURE1, gl_state.lightmap_textures + 0 );
++			GL_MBind( QGL_TEXTURE1, gl_state.lightmap_textures + 0 );
+ 
+ 			lmtex = 0;
+ 
+@@ -773,8 +773,8 @@ dynamic:
+ 
+ 		c_brush_polys++;
+ 
+-		GL_MBind( GL_TEXTURE0, image->texnum );
+-		GL_MBind( GL_TEXTURE1, gl_state.lightmap_textures + lmtex );
++		GL_MBind( QGL_TEXTURE0, image->texnum );
++		GL_MBind( QGL_TEXTURE1, gl_state.lightmap_textures + lmtex );
+ 
+ //==========
+ //PGM
+@@ -792,8 +792,8 @@ dynamic:
+ 				qglBegin (GL_POLYGON);
+ 				for (i=0 ; i< nv; i++, v+= VERTEXSIZE)
+ 				{
+-					qglMTexCoord2fSGIS( GL_TEXTURE0, (v[3]+scroll), v[4]);
+-					qglMTexCoord2fSGIS( GL_TEXTURE1, v[5], v[6]);
++					qglMTexCoord2fSGIS( QGL_TEXTURE0, (v[3]+scroll), v[4]);
++					qglMTexCoord2fSGIS( QGL_TEXTURE1, v[5], v[6]);
+ 					qglVertex3fv (v);
+ 				}
+ 				qglEnd ();
+@@ -807,8 +807,8 @@ dynamic:
+ 				qglBegin (GL_POLYGON);
+ 				for (i=0 ; i< nv; i++, v+= VERTEXSIZE)
+ 				{
+-					qglMTexCoord2fSGIS( GL_TEXTURE0, v[3], v[4]);
+-					qglMTexCoord2fSGIS( GL_TEXTURE1, v[5], v[6]);
++					qglMTexCoord2fSGIS( QGL_TEXTURE0, v[3], v[4]);
++					qglMTexCoord2fSGIS( QGL_TEXTURE1, v[5], v[6]);
+ 					qglVertex3fv (v);
+ 				}
+ 				qglEnd ();
+@@ -821,8 +821,8 @@ dynamic:
+ 	{
+ 		c_brush_polys++;
+ 
+-		GL_MBind( GL_TEXTURE0, image->texnum );
+-		GL_MBind( GL_TEXTURE1, gl_state.lightmap_textures + lmtex );
++		GL_MBind( QGL_TEXTURE0, image->texnum );
++		GL_MBind( QGL_TEXTURE1, gl_state.lightmap_textures + lmtex );
+ 
+ //==========
+ //PGM
+@@ -840,8 +840,8 @@ dynamic:
+ 				qglBegin (GL_POLYGON);
+ 				for (i=0 ; i< nv; i++, v+= VERTEXSIZE)
+ 				{
+-					qglMTexCoord2fSGIS( GL_TEXTURE0, (v[3]+scroll), v[4]);
+-					qglMTexCoord2fSGIS( GL_TEXTURE1, v[5], v[6]);
++					qglMTexCoord2fSGIS( QGL_TEXTURE0, (v[3]+scroll), v[4]);
++					qglMTexCoord2fSGIS( QGL_TEXTURE1, v[5], v[6]);
+ 					qglVertex3fv (v);
+ 				}
+ 				qglEnd ();
+@@ -857,8 +857,8 @@ dynamic:
+ 				qglBegin (GL_POLYGON);
+ 				for (i=0 ; i< nv; i++, v+= VERTEXSIZE)
+ 				{
+-					qglMTexCoord2fSGIS( GL_TEXTURE0, v[3], v[4]);
+-					qglMTexCoord2fSGIS( GL_TEXTURE1, v[5], v[6]);
++					qglMTexCoord2fSGIS( QGL_TEXTURE0, v[3], v[4]);
++					qglMTexCoord2fSGIS( QGL_TEXTURE1, v[5], v[6]);
+ 					qglVertex3fv (v);
+ 				}
+ 				qglEnd ();
+@@ -1008,9 +1008,9 @@ e->angles[0] = -e->angles[0];	// stupid 
+ e->angles[2] = -e->angles[2];	// stupid quake bug
+ 
+ 	GL_EnableMultitexture( true );
+-	GL_SelectTexture( GL_TEXTURE0);
++	GL_SelectTexture( QGL_TEXTURE0);
+ 	GL_TexEnv( GL_REPLACE );
+-	GL_SelectTexture( GL_TEXTURE1);
++	GL_SelectTexture( QGL_TEXTURE1);
+ 	GL_TexEnv( GL_MODULATE );
+ 
+ 	R_DrawInlineBModel ();
+@@ -1222,9 +1222,9 @@ void R_DrawWorld (void)
+ 	{
+ 		GL_EnableMultitexture( true );
+ 
+-		GL_SelectTexture( GL_TEXTURE0);
++		GL_SelectTexture( QGL_TEXTURE0);
+ 		GL_TexEnv( GL_REPLACE );
+-		GL_SelectTexture( GL_TEXTURE1);
++		GL_SelectTexture( QGL_TEXTURE1);
+ 
+ 		if ( gl_lightmap->value )
+ 			GL_TexEnv( GL_REPLACE );
+@@ -1572,7 +1572,7 @@ void GL_BeginBuildingLightmaps (model_t 
+ 	r_framecount = 1;		// no dlightcache
+ 
+ 	GL_EnableMultitexture( true );
+-	GL_SelectTexture( GL_TEXTURE1);
++	GL_SelectTexture( QGL_TEXTURE1);
+ 
+ 	/*
+ 	** setup the base lightstyles so the lightmaps won't have to be regenerated
+--- quake2-3.21/ctf/g_local.h.orig	2001-12-22 16:32:20.000000000 +0100
++++ quake2-3.21/ctf/g_local.h	2007-04-29 08:46:26.459759400 +0200
+@@ -466,10 +466,6 @@
+ extern	int	sm_meat_index;
+ extern	int	snd_fry;
+ 
+-extern	int	jacket_armor_index;
+-extern	int	combat_armor_index;
+-extern	int	body_armor_index;
+-
+ 
+ // means of death
+ #define MOD_UNKNOWN			0
+@@ -557,10 +557,6 @@
+ 
+ extern	cvar_t	*sv_maplist;
+ 
+-//ZOID
+-extern	qboolean	is_quad;
+-//ZOID
+-
+ #define world	(&g_edicts[0])
+ 
+ // item spawnflags
