@@ -1,0 +1,4 @@
+# q2 server options
+
+# Should automatic restarts from rpm upgrades be skipped?
+#RPM_SKIP_AUTO_RESTART=yes
