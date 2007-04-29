@@ -1,0 +1,24 @@
+--- quake2-3.21/qcommon/files.c.orig	2001-12-22 16:32:26.000000000 +0100
++++ quake2-3.21/qcommon/files.c	2007-04-29 09:32:23.324864189 +0200
+@@ -633,7 +633,9 @@
+ 		Cvar_FullSet ("gamedir", dir, CVAR_SERVERINFO|CVAR_NOSET);
+ 		if (fs_cddir->string[0])
+ 			FS_AddGameDirectory (va("%s/%s", fs_cddir->string, dir) );
+-		FS_AddGameDirectory (va("%s/%s", fs_basedir->string, dir) );
++		/*FS_AddGameDirectory (va("%s/%s", fs_basedir->string, dir) );*/
++		FS_AddGameDirectory (va(PKGLIBDIR"/%s", dir) );
++		FS_AddGameDirectory (va(PKGDATADIR"/%s", dir) );
+ 	}
+ }
+ 
+@@ -865,7 +867,9 @@
+ 	//
+ 	// start up with baseq2 by default
+ 	//
+-	FS_AddGameDirectory (va("%s/"BASEDIRNAME, fs_basedir->string) );
++	/*FS_AddGameDirectory (va("%s/"BASEDIRNAME, fs_basedir->string) );*/
++	FS_AddGameDirectory (PKGLIBDIR"/"BASEDIRNAME);
++	FS_AddGameDirectory (PKGDATADIR"/"BASEDIRNAME);
+ 
+ 	// any set gamedirs will be freed up to here
+ 	fs_base_searchpaths = fs_searchpaths;
