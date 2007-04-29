@@ -1,0 +1,27 @@
+--- quake2-3.21/xatrix/g_local.h.orig	1998-11-30 17:55:00.000000000 +0100
++++ quake2-3.21/xatrix/g_local.h	2007-04-28 23:52:32.470246373 +0200
+@@ -446,10 +446,6 @@ extern	spawn_temp_t	st;
+ extern	int	sm_meat_index;
+ extern	int	snd_fry;
+ 
+-extern	int	jacket_armor_index;
+-extern	int	combat_armor_index;
+-extern	int	body_armor_index;
+-
+ 
+ // means of death
+ #define MOD_UNKNOWN			0
+--- quake2-3.21/linux/Makefile.orig	2007-04-29 10:08:48.001361000 +0200
++++ quake2-3.21/linux/Makefile	2007-04-29 10:10:08.829967967 +0200
+@@ -97,1 +97,1 @@
+-#	$(BUILDDIR)/xatrix/game$(ARCH).$(SHLIBEXT) \
++	$(BUILDDIR)/xatrix/game$(ARCH).$(SHLIBEXT) \
+@@ -107,1 +107,1 @@
+-#	$(BUILDDIR)/xatrix/game$(ARCH).$(SHLIBEXT) \
++	$(BUILDDIR)/xatrix/game$(ARCH).$(SHLIBEXT) \
+@@ -119,1 +119,1 @@
+-#		$(BUILD_DEBUG_DIR)/xatrix \
++		$(BUILD_DEBUG_DIR)/xatrix \
+@@ -131,1 +131,1 @@
+-#		$(BUILD_RELEASE_DIR)/xatrix \
++		$(BUILD_RELEASE_DIR)/xatrix \
