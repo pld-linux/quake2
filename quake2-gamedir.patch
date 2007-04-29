@@ -22,3 +22,31 @@
  
  	// any set gamedirs will be freed up to here
  	fs_base_searchpaths = fs_searchpaths;
+--- quake2-3.21/linux/sys_linux.c.orig	2001-12-22 18:45:58.000000000 +0100
++++ quake2-3.21/linux/sys_linux.c	2007-04-29 10:56:10.723359301 +0200
+@@ -217,7 +217,6 @@
+ 	void	*(*GetGameAPI) (void *);
+ 
+ 	char	name[MAX_OSPATH];
+-	char	curpath[MAX_OSPATH];
+ 	char	*path;
+ #ifdef __i386__
+ 	const char *gamename = "gamei386.so";
+@@ -233,8 +232,6 @@
+ 	if (game_library)
+ 		Com_Error (ERR_FATAL, "Sys_GetGameAPI without Sys_UnloadingGame");
+ 
+-	getcwd(curpath, sizeof(curpath));
+-
+ 	Com_Printf("------- Loading %s -------\n", gamename);
+ 
+ 	// now run through the search paths
+@@ -244,7 +241,7 @@
+ 		path = FS_NextPath (path);
+ 		if (!path)
+ 			return NULL;		// couldn't find one anywhere
+-		sprintf (name, "%s/%s/%s", curpath, path, gamename);
++		sprintf (name, "%s/%s", path, gamename);
+ 		game_library = dlopen (name, RTLD_LAZY );
+ 		if (game_library)
+ 		{
