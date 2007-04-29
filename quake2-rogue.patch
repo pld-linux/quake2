@@ -1,0 +1,48 @@
+--- quake2-3.21/rogue/g_local.h.orig	1998-11-30 17:53:00.000000000 +0100
++++ quake2-3.21/rogue/g_local.h	2007-04-29 00:05:27.210396299 +0200
+@@ -1,5 +1,8 @@
+ // g_local.h -- local definitions for game module
+ 
++// to get NAN from <math.h>
++#define _ISOC9X_SOURCE
++
+ #include "q_shared.h"
+ 
+ // define GAME_INCLUDE so that game.h does not define the
+@@ -22,10 +25,10 @@
+ //==================================================================
+ 
+ #ifndef _WIN32
+-#include <nan.h>
+ #define min(a,b) ((a) < (b) ? (a) : (b))
+ #define max(a,b) ((a) > (b) ? (a) : (b))
+ #ifdef __sun__
++#include <nan.h>
+ #define _isnan(a) (NaN((a)))
+ #else
+ #define _isnan(a) ((a)==NAN)
+@@ -545,10 +548,6 @@ extern	spawn_temp_t	st;
+ extern	int	sm_meat_index;
+ extern	int	snd_fry;
+ 
+-extern	int	jacket_armor_index;
+-extern	int	combat_armor_index;
+-extern	int	body_armor_index;
+-
+ 
+ // means of death
+ #define MOD_UNKNOWN			0
+--- quake2-3.21/linux/Makefile.orig	2007-04-29 09:43:54.456249000 +0200
++++ quake2-3.21/linux/Makefile	2007-04-29 10:08:48.001361807 +0200
+@@ -98,1 +98,1 @@
+-#	$(BUILDDIR)/rogue/game$(ARCH).$(SHLIBEXT)
++	$(BUILDDIR)/rogue/game$(ARCH).$(SHLIBEXT)
+@@ -108,1 +108,1 @@
+-#	$(BUILDDIR)/rogue/game$(ARCH).$(SHLIBEXT)
++	$(BUILDDIR)/rogue/game$(ARCH).$(SHLIBEXT)
+@@ -120,1 +120,1 @@
+-#		$(BUILD_DEBUG_DIR)/rogue
++		$(BUILD_DEBUG_DIR)/rogue
+@@ -132,1 +132,1 @@
+-#		$(BUILD_RELEASE_DIR)/rogue
++		$(BUILD_RELEASE_DIR)/rogue
