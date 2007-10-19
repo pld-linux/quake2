@@ -1,3 +1,5 @@
+# TODO
+# - unpackaged: /usr/lib/quake2/ref_gl.so
 #
 # Conditional build:
 %bcond_with	rogue	# with Rogue ("Ground Zero") Mission Pack  (non-distributable package)
