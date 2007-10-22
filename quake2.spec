@@ -235,17 +235,17 @@ install -D xatrix/game%{qarch}.so $RPM_BUILD_ROOT%{_gamelibdir}/xatrix/game%{qar
 
 cat > $RPM_BUILD_ROOT%{_bindir}/quake2-glx <<EOF
 #!/bin/sh
-exec /usr/bin/quake2id +set vid_ref glx +set gl_driver libGL.so.1 > /dev/null
+exec %{_bindir}/quake2id +set vid_ref glx +set gl_driver libGL.so.1 > /dev/null
 EOF
 
 cat > $RPM_BUILD_ROOT%{_bindir}/quake2-x11 <<EOF
 #!/bin/sh
-exec /usr/bin/quake2id +set vid_ref softx > /dev/null
+exec %{_bindir}/quake2id +set vid_ref softx > /dev/null
 EOF
 
 cat > $RPM_BUILD_ROOT%{_bindir}/quake2-svga <<EOF
 #!/bin/sh
-exec /usr/bin/quake2id +set vid_ref soft > /dev/null
+exec %{_bindir}/quake2id +set vid_ref soft > /dev/null
 EOF
 
 cat > $RPM_BUILD_ROOT%{_desktopdir}/quake2-glx.desktop <<EOF
