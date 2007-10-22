@@ -40,6 +40,7 @@ BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXxf86dga-devel
 BuildRequires:	xorg-lib-libXxf86vm-devel
 Requires:	%{name}-renderer = %{epoch}:%{version}-%{release}
+Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Obsoletes:	quake2-3DFX
 Obsoletes:	quake2-3dfx
 Obsoletes:	quake2-Mesa3D
@@ -76,6 +77,13 @@ Quake2 dla Linuksa!
 %description -l pt_BR.UTF-8
 Quake2 para Linux!
 
+%package common
+Summary:	Quake2 common files
+Group:		Applications/Games
+
+%description common
+Quake2 common files.
+
 %package server
 Summary:	Quake2 server
 Summary(pl.UTF-8):	Serwer Quake2
@@ -88,7 +96,7 @@ Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Requires:	rc-scripts
 Requires:	screen
 Provides:	group(quake2)
@@ -311,6 +319,10 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc *_Changes.txt changes.txt joystick.txt readme.txt linux/README*
+%{_pixmapsdir}/quake2.png
+
+%files common
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/quake2id
 %{_sysconfdir}/quake2.conf
 %dir %{_gamelibdir}
@@ -320,7 +332,6 @@ fi
 %attr(755,root,root) %{_gamelibdir}/ctf/game%{qarch}.so
 %dir %{_gamedatadir}
 %dir %{_gamedatadir}/baseq2
-%{_pixmapsdir}/quake2.png
 
 %files server
 %defattr(644,root,root,755)
