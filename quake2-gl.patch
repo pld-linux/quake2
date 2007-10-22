@@ -1,0 +1,10 @@
+--- quake2-0.3/src/gl_fxmesa.c~	2006-01-25 16:58:00.000000000 +0100
++++ quake2-0.3/src/gl_fxmesa.c	2006-01-25 16:58:00.000000000 +0100
+@@ -72,7 +72,6 @@
+ extern cvar_t *vid_fullscreen;
+ extern cvar_t *vid_ref;
+ 
+-#define GLAPI extern
+ #define GLAPIENTRY
+ 
+ #define FXMESA_NONE		0               // to terminate attribList

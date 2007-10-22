@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Quake II
+Comment=Quake2 for Linux
+Comment[pl]=Quake2 dla Linuksa
+Exec=quake2
+Icon=quake2.png 
+Terminal=false
+Type=Application
+Categories=Game;X-FPPGame;
+Encoding=UTF-8
+# vi: encoding=utf-8
