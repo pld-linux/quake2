@@ -33,12 +33,10 @@ Patch2:		%{name}-rogue.patch
 Patch3:		%{name}-xatrix.patch
 URL:		http://www.idsoftware.com/games/quake/quake2/
 BuildRequires:	OpenGL-GLX-devel
+BuildRequires:	XFree86-devel
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	svgalib-devel
 BuildRequires:	unzip
-BuildRequires:	xorg-lib-libXext-devel
-BuildRequires:	xorg-lib-libXxf86dga-devel
-BuildRequires:	xorg-lib-libXxf86vm-devel
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Requires:	%{name}-renderer = %{epoch}:%{version}-%{release}
 Obsoletes:	quake2-3DFX
