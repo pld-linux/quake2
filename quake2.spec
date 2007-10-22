@@ -222,7 +222,11 @@ install -d $RPM_BUILD_ROOT{%{_gamedatadir}/baseq2,%{_gamelibdir}/{baseq2,ctf}} \
 
 cd linux/release%{qarch}-glibc
 
+%ifarch alpha
+install q2ded $RPM_BUILD_ROOT%{_bindir}/quake2id
+%else
 install quake2 $RPM_BUILD_ROOT%{_bindir}/quake2id
+%endif
 install ref_*.so $RPM_BUILD_ROOT%{_gamelibdir}
 install game%{qarch}.so $RPM_BUILD_ROOT%{_gamelibdir}/baseq2
 install ctf/game%{qarch}.so $RPM_BUILD_ROOT%{_gamelibdir}/ctf
