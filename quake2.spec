@@ -89,8 +89,6 @@ Summary:	Quake2 server
 Summary(pl.UTF-8):	Serwer Quake2
 Summary(pt_BR.UTF-8):	Servidor Quake2
 Group:		Applications/Games
-Provides:	group(quake2)
-Provides:	user(quake2)
 Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
@@ -101,6 +99,8 @@ Requires(pre):	/usr/sbin/useradd
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Requires:	rc-scripts
 Requires:	screen
+Provides:	group(quake2)
+Provides:	user(quake2)
 
 %description server
 Quake2 server.
@@ -115,8 +115,8 @@ Servidor Quake2.
 Summary:	OpenGL Quake2
 Summary(pl.UTF-8):	Quake2 OpenGL
 Group:		X11/Applications/Games
-Provides:	%{name}-renderer = %{epoch}:%{version}-%{release}
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Provides:	%{name}-renderer = %{epoch}:%{version}-%{release}
 Obsoletes:	quake2-GLX
 
 %description glx
@@ -129,8 +129,8 @@ Zagraj w Quake2 ze sprzętową akceleracją OpenGL.
 Summary:	Quake2 for SVGAlib
 Summary(pl.UTF-8):	Biblioteki Quake2 dla SVGAlib
 Group:		Applications/Games
-Provides:	%{name}-renderer = %{epoch}:%{version}-%{release}
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Provides:	%{name}-renderer = %{epoch}:%{version}-%{release}
 Obsoletes:	quake2-svgalib
 
 %description svga
@@ -143,8 +143,8 @@ Biblioteki Quake2 do grania na SVGAlib.
 Summary:	Quake2 X11 software renderer libs
 Summary(pl.UTF-8):	Biblioteka Quake2 - programowe renderowanie
 Group:		X11/Applications/Games
-Provides:	%{name}-renderer = %{epoch}:%{version}-%{release}
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Provides:	%{name}-renderer = %{epoch}:%{version}-%{release}
 Obsoletes:	quake2-X11
 Obsoletes:	quake2-software-X11
 
