@@ -10,7 +10,7 @@ Summary(pl.UTF-8):	Quake2 dla Linuksa
 Summary(pt_BR.UTF-8):	Quake2 para Linux
 Name:		quake2
 Version:	3.21
-Release:	4.2
+Release:	5
 Epoch:		1
 License:	GPL (for main code only)
 Group:		Applications/Games
@@ -220,12 +220,6 @@ install -d $RPM_BUILD_ROOT{%{_gamedatadir}/baseq2,%{_gamelibdir}/{baseq2,ctf}} \
 
 cd linux/release%{qarch}-glibc
 
-%ifarch alpha
-install q2ded $RPM_BUILD_ROOT%{_bindir}/quake2id
-%else
-install quake2 $RPM_BUILD_ROOT%{_bindir}/quake2id
-%endif
-install ref_*.so $RPM_BUILD_ROOT%{_gamelibdir}
 install game%{qarch}.so $RPM_BUILD_ROOT%{_gamelibdir}/baseq2
 install ctf/game%{qarch}.so $RPM_BUILD_ROOT%{_gamelibdir}/ctf
 %if %{with rogue}
@@ -234,6 +228,12 @@ install -D rogue/game%{qarch}.so $RPM_BUILD_ROOT%{_gamelibdir}/rogue/game%{qarch
 %if %{with xatrix}
 install -D xatrix/game%{qarch}.so $RPM_BUILD_ROOT%{_gamelibdir}/xatrix/game%{qarch}.so
 %endif
+
+%ifarch alpha
+install q2ded $RPM_BUILD_ROOT%{_bindir}/quake2id
+%else
+install quake2 $RPM_BUILD_ROOT%{_bindir}/quake2id
+install ref_*.so $RPM_BUILD_ROOT%{_gamelibdir}
 
 cat > $RPM_BUILD_ROOT%{_bindir}/quake2-glx <<EOF
 #!/bin/sh
@@ -275,6 +275,7 @@ Type=Application
 Categories=Game;X-FPPGame;
 Encoding=UTF-8
 EOF
+%endif
 
 echo "%{_gamelibdir}" > $RPM_BUILD_ROOT%{_sysconfdir}/quake2.conf
 
@@ -345,6 +346,7 @@ fi
 %dir %attr(770,root,quake2) %{_gamehomedir}/.quake2/baseq2
 %config(noreplace) %attr(660,root,quake2) %verify(not md5 mtime size) %{_gamehomedir}/.quake2/baseq2/server.cfg
 
+%ifnarch alpha
 %files glx
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/quake2-glx
@@ -361,6 +363,7 @@ fi
 %attr(755,root,root) %{_bindir}/quake2-x11
 %attr(755,root,root) %{_gamelibdir}/ref_softx.so
 %{_desktopdir}/quake2-x11.desktop
+%endif
 
 %if %{with rogue}
 %files rogue
