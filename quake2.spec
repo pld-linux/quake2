@@ -1,5 +1,6 @@
 # TODO
 # - unpackaged: /usr/lib/quake2/ref_gl.so
+# - quake2: symbol lookup error: /usr/lib/quake2/ref_softx.so: undefined symbol: sqrt
 #
 # Conditional build:
 %bcond_with	rogue	# with Rogue ("Ground Zero") Mission Pack  (non-distributable package)
