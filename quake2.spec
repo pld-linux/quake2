@@ -184,8 +184,8 @@ Quake II: The Reckoning (zestaw misji).
 %prep
 %setup -q -c
 mv -f %{name}-%{version}/* .
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %if %{with rogue}
 install -d rogue
@@ -193,7 +193,7 @@ cd rogue
 gzip -dc %{SOURCE10} | %{__sed} s/"^more "/"cat >LICENSE.rogue "/ >rogue.shar
 echo yes| sh rogue.shar
 cd ..
-%patch2 -p1
+%patch -P2 -p1
 %endif
 
 %if %{with xatrix}
@@ -202,7 +202,7 @@ cd xatrix
 gunzip -c %{SOURCE11} | %{__sed} s/"^more "/"cat >LICENSE.xatrix "/ >xatrix.shar
 echo yes| sh xatrix.shar
 cd ..
-%patch3 -p1
+%patch -P3 -p1
 %endif
 
 %build
